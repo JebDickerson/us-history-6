@@ -23,6 +23,9 @@ window.CLASS = {
   // What unit you're in right now.
   unit: {
     name: "Unit 3: European Exploration",
+    // First day of the unit. "Past dates" only shows dates from this unit.
+    // Leave it null to show every past date in the list below.
+    starts: null,
     ends: "2026-11-17",
     next: "Unit 4 starts the week of Nov 16, the last few days before Thanksgiving break."
   },
@@ -31,7 +34,7 @@ window.CLASS = {
   oneThing:
     "We're at the end of Unit 3, with a few assessments in the next week. Please try to have your student in class as much as possible. We prioritize collaborative assessments, so when students are out, they have to do them alone.",
 
-  // Upcoming dates. Past dates drop off the list on their own.
+  // Dates for the unit. Once a date passes it moves to the "Past dates" list.
   dates: [
     { type: "no-school",  title: "No school for Diwali", date: "2026-11-09" },
     { type: "formative",  title: "Model & Practice",
@@ -46,6 +49,7 @@ window.CLASS = {
   ],
 
   // Weekly posts, newest first. Photos live in the photos/ folder.
+  // The two newest show in full; older weeks fold into "Earlier weeks."
   posts: [
     {
       week: "2026-11-09",

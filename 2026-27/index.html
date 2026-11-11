@@ -155,6 +155,25 @@ button { font: inherit; color: inherit; }
 .ask q { font-size: 1.15rem; font-weight: 600; line-height: 1.4; quotes: "\201C" "\201D"; }
 .older { border-top: 1px solid var(--line); padding-top: 22px; }
 
+/* Past dates and earlier weeks */
+.fold { background: transparent; box-shadow: none; padding: 0; }
+.fold > summary {
+  padding: 10px 14px; border-radius: 12px; background: var(--panel-soft);
+  font-size: .92rem; font-weight: 600; color: var(--ink-2);
+}
+.fold[open] > summary { margin-bottom: 8px; }
+.fold .row { opacity: .8; }
+.fold .list { background: transparent; padding: 0; }
+.earlier { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 22px; }
+.earlier-list { display: grid; gap: 8px; }
+.week > summary { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
+.week > summary .wk { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sage-ink); }
+.week > summary .ttl { flex: 1 1 200px; min-width: 0; }
+.week > summary::after { margin-left: auto; }
+.week .post { padding-bottom: 14px; }
+.week .post-card .eyebrow, .week .post-card h3 { display: none; }
+.week .post p { padding-bottom: 0; color: inherit; font-size: inherit; }
+
 /* Good to know */
 .faq { display: grid; gap: 8px; }
 details { background: var(--panel-soft); border-radius: 14px; padding: 2px 16px; box-shadow: var(--shadow); }
@@ -241,6 +260,10 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
       <p class="sub">Assessments and deadlines. Dates can shift, and this list always has the current ones.</p>
     </div>
     <div class="list" id="dates"></div>
+    <details class="fold" id="past" hidden>
+      <summary id="past-sum">Past dates</summary>
+      <div class="list" id="past-list"></div>
+    </details>
     <p class="unit sub" id="unit"></p>
   </section>
 
@@ -324,46 +347,59 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     return { a: day(item.a), b: day(item.b), same: item.a === item.b };
   }
 
+  function buildRow({ it, d, mine }) {
+    const row = el("div", "row");
+    const dateCol = el("div", "date");
+    const isToday = mine.some((x) => diff(x) === 0);
+    if (isToday) row.classList.add("is-today");
+    if (choice === "both" && !d.same) {
+      [["A", d.a], ["B", d.b]].forEach(([lab, x]) => {
+        const line = el("div", "both");
+        const txt = lab + " · " + dow(x) + " " + nd(x);
+        if (diff(x) < 0) line.append(el("s", null, txt));
+        else line.append(el("span", null, lab + " · "), document.createTextNode(dow(x) + " " + nd(x)));
+        dateCol.append(line);
+      });
+    } else {
+      const x = mine[0];
+      dateCol.append(el("span", "dow", dow(x)), el("span", "md", md(x)));
+    }
+    const body = el("div", "row-body");
+    const title = el("div", "row-title");
+    title.append(el("span", null, it.title), el("span", "tag " + it.type, typeLabel[it.type] || it.type));
+    if (isToday) title.append(el("span", "badge-today", "Today"));
+    body.append(title);
+    if (it.note) body.append(el("p", "row-note", it.note));
+    row.append(dateCol, body);
+    return row;
+  }
+
   function render() {
     document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.day === choice)));
 
-    // Build the visible list for this choice.
-    const items = C.dates.map((it) => {
+    // Sort every date into upcoming or past for this choice.
+    const all = C.dates.map((it) => {
       const d = datesFor(it);
       const mine = choice === "a" ? [d.a] : choice === "b" ? [d.b] : d.same ? [d.a] : [d.a, d.b];
       const upcoming = mine.filter((x) => diff(x) >= 0);
-      return { it, d, mine, upcoming, sortKey: upcoming.length ? Math.min(...upcoming.map(Number)) : Infinity };
-    }).filter((x) => x.upcoming.length).sort((x, y) => x.sortKey - y.sortKey);
+      return { it, d, mine, upcoming,
+        sortKey: upcoming.length ? Math.min(...upcoming.map(Number)) : Infinity,
+        last: Math.max(...mine.map(Number)) };
+    });
+    const items = all.filter((x) => x.upcoming.length).sort((x, y) => x.sortKey - y.sortKey);
+    const unitStart = C.unit && C.unit.starts ? day(C.unit.starts) : null;
+    const past = all.filter((x) => !x.upcoming.length && (!unitStart || x.last >= unitStart))
+      .sort((x, y) => y.last - x.last);
 
     const list = $("dates");
     list.replaceChildren();
     if (!items.length) list.append(el("p", "empty", "Nothing scheduled right now."));
-    items.forEach(({ it, d, mine }) => {
-      const row = el("div", "row");
-      const dateCol = el("div", "date");
-      const isToday = mine.some((x) => diff(x) === 0);
-      if (isToday) row.classList.add("is-today");
-      if (choice === "both" && !d.same) {
-        [["A", d.a], ["B", d.b]].forEach(([lab, x]) => {
-          const line = el("div", "both");
-          const txt = lab + " · " + dow(x) + " " + nd(x);
-          if (diff(x) < 0) { const s = el("s", null, txt); line.append(s); }
-          else { line.append(el("span", null, lab + " · "), document.createTextNode(dow(x) + " " + nd(x))); }
-          dateCol.append(line);
-        });
-      } else {
-        const x = mine[0];
-        dateCol.append(el("span", "dow", dow(x)), el("span", "md", md(x)));
-      }
-      const body = el("div", "row-body");
-      const title = el("div", "row-title");
-      title.append(el("span", null, it.title), el("span", "tag " + it.type, typeLabel[it.type] || it.type));
-      if (isToday) title.append(el("span", "badge-today", "Today"));
-      body.append(title);
-      if (it.note) body.append(el("p", "row-note", it.note));
-      row.append(dateCol, body);
-      list.append(row);
-    });
+    items.forEach((x) => list.append(buildRow(x)));
+
+    const pastBox = $("past");
+    $("past-list").replaceChildren(...past.map(buildRow));
+    $("past-sum").textContent = (unitStart ? "Past dates this unit" : "Past dates") + " (" + past.length + ")";
+    pastBox.hidden = !past.length;
 
     // Next up: first upcoming item that isn't a day off.
     const next = items.find((x) => x.it.type !== "no-school") || items[0];
@@ -389,12 +425,14 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
   // Posts
   const thisWeek = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
   const posts = $("posts");
-  C.posts.forEach((p, i) => {
+  const SHOW_IN_FULL = 2; // how many recent weeks show open; older ones fold into "Earlier weeks"
+  const weekLabel = (wk) => diff(wk) === diff(thisWeek) ? "This week · " + md(wk) : "Week of " + md(wk);
+
+  function buildPost(p, cls) {
     const wk = day(p.week);
-    const art = el("article", "post" + (i > 0 ? " older" : ""));
+    const art = el("article", cls);
     const card = el("div", "post-card");
-    const label = diff(wk) === diff(thisWeek) ? "This week · " + md(wk) : "Week of " + md(wk);
-    card.append(el("span", "eyebrow", label), el("h3", null, p.title));
+    card.append(el("span", "eyebrow", weekLabel(wk)), el("h3", null, p.title));
     p.body.forEach((t) => card.append(el("p", null, t)));
     art.append(card);
     if (p.photos && p.photos.length) {
@@ -418,8 +456,28 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
       ask.append(el("span", "eyebrow", "Ask your student at dinner"), el("q", null, p.ask));
       art.append(ask);
     }
-    posts.append(art);
-  });
+    return art;
+  }
+
+  C.posts.slice(0, SHOW_IN_FULL).forEach((p, i) => posts.append(buildPost(p, "post" + (i > 0 ? " older" : ""))));
+
+  const older = C.posts.slice(SHOW_IN_FULL);
+  if (older.length) {
+    const wrap = el("div", "earlier");
+    const head = el("div", "section-head");
+    head.append(el("h3", null, "Earlier weeks"), el("p", "sub", "Tap a week to open it."));
+    const listEl = el("div", "earlier-list");
+    older.forEach((p) => {
+      const det = el("details", "week");
+      det.id = "week-" + p.week;
+      const sum = el("summary");
+      sum.append(el("span", "wk", "Week of " + md(day(p.week))), el("span", "ttl", p.title));
+      det.append(sum, buildPost(p, "post"));
+      listEl.append(det);
+    });
+    wrap.append(head, listEl);
+    posts.append(wrap);
+  }
 
   // Good to know
   C.reminders.forEach((r, i) => {

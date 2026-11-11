@@ -50,6 +50,8 @@ Give him the Friday email, ready to paste. Three lines plus the link, no more:
 
 ## Rules
 
+- Say "Indigenous" or "Indigenous Americans," never "Native peoples" or "Native Americans."
+
 - Never add student last names, grades, or anything about an individual student's performance.
 - Photo captions can use first names only if Mr. Dickerson includes them.
 - Keep the "Good to know" reminders out of weekly posts unless he asks to feature one.

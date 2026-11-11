@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-title" content="US History">
+<meta name="theme-color" content="#f4ead9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c4673a'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%23fff' text-anchor='middle'%3EUS%3C/text%3E%3C/svg%3E">
+<title>Mr. Dickerson's US History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one phone-width column of sections, carrying the newsletter's sand / sage / ember look into a page that updates in place. */
+:root {
+  --bg: #f4ead9;
+  --panel: #e9dcc7;
+  --panel-soft: #fbf3e7;
+  --sage: #e1ecd2;
+  --sage-ink: #4f6a3a;
+  --ember: #c4673a;
+  --ember-soft: #f6dccb;
+  --pine: #283124;
+  --pine-ink: #eef2e6;
+  --ink: #2a241d;
+  --ink-2: #6b6052;
+  --line: #d9c9b1;
+  --chip-bg: #fffaf2;
+  --shadow: 0 1px 0 rgba(60, 40, 20, .06);
+  --font: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1a16; --panel: #2a251f; --panel-soft: #24201b; --sage: #26301f; --sage-ink: #b5cf98;
+    --ember: #e38a5c; --ember-soft: #3d2a1f; --pine: #2f3a29; --pine-ink: #eef2e6;
+    --ink: #f1e8da; --ink-2: #b4a793; --line: #3d362d; --chip-bg: #1f1b17; --shadow: none;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d1a16; --panel: #2a251f; --panel-soft: #24201b; --sage: #26301f; --sage-ink: #b5cf98;
+  --ember: #e38a5c; --ember-soft: #3d2a1f; --pine: #2f3a29; --pine-ink: #eef2e6;
+  --ink: #f1e8da; --ink-2: #b4a793; --line: #3d362d; --chip-bg: #1f1b17; --shadow: none;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg); color: var(--ink); font-family: var(--font);
+  font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+  display: grid; gap: 28px;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.15; }
+h1 { font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.01em; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; }
+.eyebrow {
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ember);
+}
+.sub { color: var(--ink-2); font-size: .9rem; }
+.section { display: grid; gap: 14px; }
+.section-head { display: grid; gap: 2px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2.5px solid var(--ember); outline-offset: 2px; }
+
+/* Header */
+.top { background: var(--panel); border-radius: 26px; padding: 22px; display: grid; gap: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: .75rem; font-weight: 500; padding: 3px 10px; border-radius: 99px;
+  background: var(--chip-bg); color: var(--ink-2);
+}
+.chip.green { background: var(--sage); color: var(--sage-ink); }
+.today { color: var(--ink-2); font-weight: 500; }
+
+.daypick { display: grid; gap: 8px; }
+.daypick-label { font-size: .85rem; font-weight: 600; }
+.seg { display: flex; background: var(--chip-bg); border-radius: 99px; padding: 4px; gap: 2px; width: fit-content; max-width: 100%; }
+.seg button {
+  border: 0; background: transparent; padding: 7px 14px; border-radius: 99px; cursor: pointer;
+  font-size: .88rem; font-weight: 600; color: var(--ink-2); white-space: nowrap;
+}
+.seg button[aria-pressed="true"] { background: var(--ember); color: #fff; }
+
+/* Next up */
+.next {
+  background: var(--panel-soft); border-radius: var(--radius); padding: 18px 20px;
+  display: grid; gap: 6px; box-shadow: var(--shadow);
+}
+.next .when { font-size: 2rem; font-weight: 800; color: var(--ember); letter-spacing: -.02em; line-height: 1.1; }
+.next .what { font-size: 1.05rem; font-weight: 600; }
+.onething { background: var(--ember-soft); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.onething p { font-size: .93rem; }
+
+/* Coming up */
+.list { background: var(--panel); border-radius: var(--radius); padding: 6px; display: grid; gap: 4px; }
+.row {
+  display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start;
+  padding: 12px 14px; border-radius: 13px; background: var(--panel-soft);
+}
+.row.is-today { outline: 2px solid var(--ember); outline-offset: -2px; }
+.date { display: grid; font-variant-numeric: tabular-nums; }
+.date .dow { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.date .md { font-size: 1.25rem; font-weight: 800; line-height: 1.15; }
+.date .both { font-size: .82rem; font-weight: 600; line-height: 1.5; }
+.date .both span { color: var(--ink-2); font-weight: 500; }
+.date .both s { color: var(--ink-2); font-weight: 500; }
+.row-body { min-width: 0; display: grid; gap: 4px; }
+.row-title { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.row-note { font-size: .88rem; color: var(--ink-2); }
+.tag {
+  font-size: .7rem; font-weight: 600; padding: 2px 9px; border-radius: 99px;
+  border: 1px solid currentColor; white-space: nowrap;
+}
+.tag.no-school { color: var(--ink-2); }
+.tag.formative, .tag.homework { color: var(--ember); }
+.tag.reflection, .tag.event { color: var(--sage-ink); }
+.tag.summative, .tag.project { color: #fff; background: var(--ember); border-color: var(--ember); }
+.badge-today { font-size: .7rem; font-weight: 700; color: var(--ember); letter-spacing: .06em; text-transform: uppercase; }
+.empty { padding: 16px; color: var(--ink-2); }
+
+/* Unit strip */
+.unit { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; padding: 0 4px; }
+.unit strong { font-weight: 700; }
+
+/* Posts */
+.post { display: grid; gap: 14px; }
+.post-card { background: var(--sage); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; }
+.post-card .eyebrow { color: var(--sage-ink); }
+.post-card p { max-width: 62ch; }
+.photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.photo { margin: 0; display: grid; gap: 6px; }
+.photo button { border: 0; padding: 0; background: none; cursor: zoom-in; border-radius: 14px; overflow: hidden; display: block; }
+.photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .25s ease; }
+.photo button:hover img { transform: scale(1.03); }
+.photo figcaption { font-size: .8rem; color: var(--ink-2); padding: 0 2px; }
+.ask {
+  background: var(--pine); color: var(--pine-ink); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px;
+}
+.ask .eyebrow { color: #c9dbb0; }
+.ask q { font-size: 1.15rem; font-weight: 600; line-height: 1.4; quotes: "\201C" "\201D"; }
+.older { border-top: 1px solid var(--line); padding-top: 22px; }
+
+/* Good to know */
+.faq { display: grid; gap: 8px; }
+details { background: var(--panel-soft); border-radius: 14px; padding: 2px 16px; box-shadow: var(--shadow); }
+summary {
+  cursor: pointer; font-weight: 700; padding: 12px 0; list-style: none;
+  display: flex; justify-content: space-between; gap: 12px; align-items: center;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-weight: 500; font-size: 1.3rem; color: var(--ember); line-height: 1; }
+details[open] summary::after { content: "\2212"; }
+details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-width: 62ch; }
+
+/* Footer */
+.foot {
+  display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--line); padding-top: 20px;
+}
+.foot .who { display: grid; gap: 2px; }
+.foot .name { font-size: 1.2rem; font-weight: 600; }
+.mail { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mail code { font-family: var(--font); font-size: .9rem; user-select: all; overflow-wrap: anywhere; }
+.btn {
+  border: 0; background: var(--ember); color: #fff; font-weight: 600; font-size: .85rem;
+  padding: 8px 16px; border-radius: 99px; cursor: pointer;
+}
+.tip { font-size: .82rem; color: var(--ink-2); }
+
+/* Lightbox */
+.lb {
+  position: fixed; inset: 0; background: rgba(20, 16, 12, .88); display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  z-index: 50; cursor: zoom-out;
+}
+.lb figure { margin: 0; display: grid; gap: 10px; max-width: 980px; }
+.lb img { max-height: 80vh; width: auto; margin: 0 auto; border-radius: 12px; }
+.lb figcaption { color: #f1e8da; text-align: center; font-size: .9rem; }
+
+@media (min-width: 640px) {
+  .wrap { padding-block: 32px 64px; gap: 34px; }
+  .top { padding: 30px; }
+  .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .row { grid-template-columns: 110px 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .photo img { transition: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="chips">
+      <span class="chip" id="chip-school"></span>
+      <span class="chip green" id="chip-course"></span>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h1>What's happening in US History</h1>
+      <p class="today" id="today-line"></p>
+    </div>
+    <div class="daypick">
+      <span class="daypick-label" id="daypick-label">My student has class on</span>
+      <div class="seg" role="group" aria-labelledby="daypick-label">
+        <button type="button" id="day-a" data-day="a">A Day</button>
+        <button type="button" id="day-b" data-day="b">B Day</button>
+        <button type="button" id="day-both" data-day="both">Not sure</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="next-h">
+    <div class="next" id="next">
+      <span class="eyebrow" id="next-h">Next up for your student</span>
+      <span class="when" id="next-when"></span>
+      <span class="what" id="next-what"></span>
+    </div>
+    <div class="onething">
+      <span class="eyebrow">The one thing</span>
+      <p id="one-thing"></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="coming-h">
+    <div class="section-head">
+      <h2 id="coming-h">Coming up</h2>
+      <p class="sub">Assessments and deadlines. Dates can shift, and this list always has the current ones.</p>
+    </div>
+    <div class="list" id="dates"></div>
+    <p class="unit sub" id="unit"></p>
+  </section>
+
+  <section class="section" aria-labelledby="posts-h">
+    <div class="section-head">
+      <h2 id="posts-h">In class</h2>
+      <p class="sub">What we've been doing, newest first.</p>
+    </div>
+    <div id="posts" style="display:grid;gap:28px"></div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-h">
+    <div class="section-head">
+      <h2 id="faq-h">Good to know</h2>
+      <p class="sub">Class policies that come up every unit.</p>
+    </div>
+    <div class="faq" id="faq"></div>
+  </section>
+
+  <footer class="foot">
+    <div class="who">
+      <span class="sub">Questions? Email me.</span>
+      <span class="name" id="foot-name"></span>
+      <div class="mail">
+        <code id="email"></code>
+        <button class="btn" type="button" id="copy">Copy email</button>
+      </div>
+    </div>
+    <p class="tip">Tip: save this page to your phone's home screen and it opens like an app.</p>
+  </footer>
+</div>
+
+<div class="lb" id="lb" hidden>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  const C = window.CLASS;
+  if (!C) return;
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+
+  // Dates: parse "YYYY-MM-DD" as a local calendar day.
+  const day = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const now = new Date();
+  const TODAY = C.pretendToday ? day(C.pretendToday) : new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const DAY_MS = 86400000;
+  const diff = (d) => Math.round((d - TODAY) / DAY_MS);
+  const fmt = (d, o) => d.toLocaleDateString("en-US", o);
+  const md = (d) => fmt(d, { month: "short", day: "numeric" });
+  const nd = (d) => (d.getMonth() + 1) + "/" + d.getDate();
+  const dow = (d) => fmt(d, { weekday: "short" });
+  const relative = (d) => {
+    const n = diff(d);
+    if (n === 0) return "Today";
+    if (n === 1) return "Tomorrow";
+    if (n < 7) return fmt(d, { weekday: "long" });
+    return md(d);
+  };
+  const typeLabel = { "no-school": "No school", formative: "Formative", reflection: "Reflection", summative: "Major summative", project: "Project", homework: "Homework", event: "Heads up" };
+
+  // Header
+  $("chip-school").textContent = C.school + " · " + C.teacher;
+  $("chip-course").textContent = C.course;
+  $("today-line").textContent = fmt(TODAY, { weekday: "long", month: "long", day: "numeric" });
+  $("one-thing").textContent = C.oneThing;
+  $("foot-name").textContent = C.teacher;
+  $("email").textContent = C.email;
+  $("unit").innerHTML = "";
+  const u1 = el("strong", null, C.unit.name), u2 = el("span", null, "wraps up " + md(day(C.unit.ends)) + ". " + C.unit.next);
+  $("unit").append(u1, u2);
+
+  // A Day / B Day choice, remembered on this device.
+  let choice = "both";
+  try { choice = localStorage.getItem("abday") || "both"; } catch (e) {}
+
+  function datesFor(item) {
+    if (item.date) return { a: day(item.date), b: day(item.date), same: true };
+    return { a: day(item.a), b: day(item.b), same: item.a === item.b };
+  }
+
+  function render() {
+    document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.day === choice)));
+
+    // Build the visible list for this choice.
+    const items = C.dates.map((it) => {
+      const d = datesFor(it);
+      const mine = choice === "a" ? [d.a] : choice === "b" ? [d.b] : d.same ? [d.a] : [d.a, d.b];
+      const upcoming = mine.filter((x) => diff(x) >= 0);
+      return { it, d, mine, upcoming, sortKey: upcoming.length ? Math.min(...upcoming.map(Number)) : Infinity };
+    }).filter((x) => x.upcoming.length).sort((x, y) => x.sortKey - y.sortKey);
+
+    const list = $("dates");
+    list.replaceChildren();
+    if (!items.length) list.append(el("p", "empty", "Nothing scheduled right now."));
+    items.forEach(({ it, d, mine }) => {
+      const row = el("div", "row");
+      const dateCol = el("div", "date");
+      const isToday = mine.some((x) => diff(x) === 0);
+      if (isToday) row.classList.add("is-today");
+      if (choice === "both" && !d.same) {
+        [["A", d.a], ["B", d.b]].forEach(([lab, x]) => {
+          const line = el("div", "both");
+          const txt = lab + " · " + dow(x) + " " + nd(x);
+          if (diff(x) < 0) { const s = el("s", null, txt); line.append(s); }
+          else { line.append(el("span", null, lab + " · "), document.createTextNode(dow(x) + " " + nd(x))); }
+          dateCol.append(line);
+        });
+      } else {
+        const x = mine[0];
+        dateCol.append(el("span", "dow", dow(x)), el("span", "md", md(x)));
+      }
+      const body = el("div", "row-body");
+      const title = el("div", "row-title");
+      title.append(el("span", null, it.title), el("span", "tag " + it.type, typeLabel[it.type] || it.type));
+      if (isToday) title.append(el("span", "badge-today", "Today"));
+      body.append(title);
+      if (it.note) body.append(el("p", "row-note", it.note));
+      row.append(dateCol, body);
+      list.append(row);
+    });
+
+    // Next up: first upcoming item that isn't a day off.
+    const next = items.find((x) => x.it.type !== "no-school") || items[0];
+    const nextBox = $("next");
+    if (!next) { nextBox.hidden = true; return; }
+    nextBox.hidden = false;
+    const when = Math.min(...next.upcoming.map(Number));
+    $("next-h").textContent = choice === "both" ? "Next up" : "Next up for your student";
+    $("next-when").textContent = relative(new Date(when));
+    let what = next.it.title;
+    if (choice === "both" && !next.d.same) what += " (A Day " + md(next.d.a) + ", B Day " + md(next.d.b) + ")";
+    else what += " · " + fmt(new Date(when), { weekday: "long", month: "short", day: "numeric" });
+    $("next-what").textContent = what;
+  }
+
+  document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+    choice = b.dataset.day;
+    try { localStorage.setItem("abday", choice); } catch (e) {}
+    render();
+  }));
+  render();
+
+  // Posts
+  const thisWeek = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
+  const posts = $("posts");
+  C.posts.forEach((p, i) => {
+    const wk = day(p.week);
+    const art = el("article", "post" + (i > 0 ? " older" : ""));
+    const card = el("div", "post-card");
+    const label = diff(wk) === diff(thisWeek) ? "This week · " + md(wk) : "Week of " + md(wk);
+    card.append(el("span", "eyebrow", label), el("h3", null, p.title));
+    p.body.forEach((t) => card.append(el("p", null, t)));
+    art.append(card);
+    if (p.photos && p.photos.length) {
+      const grid = el("div", "photos");
+      p.photos.forEach((ph) => {
+        const fig = el("figure", "photo");
+        const btn = el("button");
+        btn.type = "button";
+        btn.setAttribute("aria-label", "Enlarge photo: " + ph.caption);
+        const img = el("img");
+        img.src = ph.src; img.alt = ph.caption; img.loading = "lazy";
+        btn.append(img);
+        btn.addEventListener("click", () => openLb(ph));
+        fig.append(btn, el("figcaption", null, ph.caption));
+        grid.append(fig);
+      });
+      art.append(grid);
+    }
+    if (p.ask) {
+      const ask = el("div", "ask");
+      ask.append(el("span", "eyebrow", "Ask your student at dinner"), el("q", null, p.ask));
+      art.append(ask);
+    }
+    posts.append(art);
+  });
+
+  // Good to know
+  C.reminders.forEach((r, i) => {
+    const d = el("details");
+    d.id = "faq-" + i;
+    d.append(el("summary", null, r.title), el("p", null, r.body));
+    $("faq").append(d);
+  });
+
+  // Lightbox
+  const lb = $("lb");
+  function openLb(ph) { $("lb-img").src = ph.src; $("lb-img").alt = ph.caption; $("lb-cap").textContent = ph.caption; lb.hidden = false; }
+  lb.addEventListener("click", () => { lb.hidden = true; });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") lb.hidden = true; });
+
+  // Copy email
+  $("copy").addEventListener("click", () => {
+    const b = $("copy");
+    const done = () => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy email"), 1600); };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(C.email).then(done, () => selectEmail());
+    } else selectEmail();
+  });
+  function selectEmail() {
+    const r = document.createRange(); r.selectNodeContents($("email"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+})();
+</script>
+</body>
+</html>

@@ -29,6 +29,9 @@ week" or "skip" are all fine. Show the relevant current content from `data.js` w
 
 - Write the post text in Mr. Dickerson's voice: two or three sentences, plain and warm. Don't
   invent details he didn't give. If something is unclear, ask rather than guess.
+- Post text and `thisWeek` lines shouldn't say "this week" or "next week" about anything that
+  falls on different days for A Day and B Day. Point to Coming up instead, which shows each
+  family their own dates.
 - New dates and posts get `added: "<today>"` so returning families see them marked New.
 - A moved date: change it and put the old one in `was`. Don't delete it and re-add.
 - Set `updated` to today. Rewrite `thisWeek.learning` and `thisWeek.todo` (`todo: null` if none).

@@ -80,7 +80,7 @@ window.CLASS = {
       week: "2026-11-09",
       added: "2026-11-11",
       title: "Unit 3 wraps up",
-      text: "Model & Practice this week is both the formative assessment and the practice round for the summative. Next week brings the Unit 3 summative and reflection, and then we start Unit 4.",
+      text: "Model & Practice this week is both the formative assessment and the practice round for the summative. The Unit 3 summative and reflection are coming up fast (your student's dates are under Coming up), and then we start Unit 4.",
       ask: "How should we remember the Age of Exploration? Whose perspectives should we keep in mind?",
       listenFor: "A claim backed by evidence, not just an opinion. Can they name a specific explorer and say whether they lean \"explorer\" or \"exploiter,\" and why?"
     },

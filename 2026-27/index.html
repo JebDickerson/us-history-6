@@ -150,6 +150,7 @@ button { font: inherit; color: inherit; }
 .tag.formative, .tag.homework { color: var(--ember); }
 .tag.reflection, .tag.event { color: var(--sage-ink); }
 .tag.summative, .tag.project { color: #fff; background: var(--ember); border-color: var(--ember); }
+.tag.minor { color: var(--ember); background: var(--ember-soft); border-color: transparent; }
 .badge-today { font-size: .7rem; font-weight: 700; color: var(--ember); letter-spacing: .06em; text-transform: uppercase; }
 .empty { padding: 16px; color: var(--ink-2); }
 
@@ -347,7 +348,7 @@ details[open] > summary::after { content: "\2212"; }
     if (n < 7) return fmt(d, { weekday: "long" });
     return md(d);
   };
-  const typeLabel = { "no-school": "No school", formative: "Formative", reflection: "Reflection", summative: "Major summative", project: "Project", homework: "Homework", event: "Heads up" };
+  const typeLabel = { "no-school": "No school", formative: "Formative", reflection: "Reflection", minor: "Minor summative", summative: "Major summative", project: "Project", homework: "Homework", event: "Heads up" };
 
   // ---- Remembered on this device only ----
   const store = {

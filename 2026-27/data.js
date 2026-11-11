@@ -14,7 +14,8 @@
   The page then shows it as "Moved" with the old date crossed out.
 
   Types (these control the colored tag):
-    "no-school", "formative", "reflection", "summative", "project", "homework", "event"
+    "no-school", "formative", "minor" (minor summative), "summative" (major summative),
+    "reflection", "project", "homework", "event"
 */
 
 window.CLASS = {
@@ -53,7 +54,7 @@ window.CLASS = {
   thisWeek: {
     learning: "We're wrapping up Unit 3: how European exploration changed life on both sides of the Atlantic.",
     // One thing families can do. null if there's nothing this week.
-    todo: "Help your student be in class for the Unit 3 summative. We take assessments together, so students who are out do them alone."
+    todo: "Help your student be in class for the Unit 3 summative, and make sure their sketchbook is ready. It's due that same day. We take assessments together, so students who are out do them alone."
   },
 
   // Dates. Once a date passes it moves to "Past dates" on its own.
@@ -62,10 +63,13 @@ window.CLASS = {
     { type: "formative",  title: "Model & Practice",
       note: "Practice for the unit summative, and the formative before it.",
       a: "2026-11-10", b: "2026-11-11", added: "2026-11-02" },
-    { type: "reflection", title: "Unit 3 reflection",
+    { type: "minor", title: "Unit 3 reflection",
       a: "2026-11-12", b: "2026-11-17", added: "2026-11-02" },
     { type: "summative",  title: "Unit 3 major summative",
-      a: "2026-11-16", b: "2026-11-13", added: "2026-11-02" }
+      a: "2026-11-16", b: "2026-11-13", added: "2026-11-02" },
+    { type: "minor", title: "Sketchbook due",
+      note: "Sketchbooks are always due the day of the unit's major summative.",
+      a: "2026-11-16", b: "2026-11-13", added: "2026-11-11" }
   ],
 
   // Weekly posts, newest first: one strong photo and two or three sentences.
@@ -106,7 +110,7 @@ window.CLASS = {
     },
     {
       title: "Check in on their sketchbook",
-      body: "Sketchbooks are our main tool for keeping a solid record of learning. They should be neat, legible and organized, and your student should be able to talk you through the learning on any given day using theirs."
+      body: "Sketchbooks are our main tool for keeping a solid record of learning. They should be neat, legible and organized, and your student should be able to talk you through the learning on any given day using theirs. Sketchbooks are always due on the day of the unit's major summative, and they count as a minor summative."
     }
   ]
 };

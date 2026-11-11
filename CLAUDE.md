@@ -34,6 +34,8 @@ week" or "skip" are all fine. Show the relevant current content from `data.js` w
 - Set `updated` to today. Rewrite `thisWeek.learning` and `thisWeek.todo` (`todo: null` if none).
 - Photos: resize to about 1100px on the long side, JPEG quality ~80, strip metadata, save in
   `2026-27/photos/` with a short descriptive filename. First photo in the list is the large one.
+- Every unit: the reflection is a minor summative (`type: "minor"`), and a "Sketchbook due"
+  entry (`type: "minor"`) goes on the same A/B dates as the unit's major summative.
 - New post goes at the top of `posts`. Leave older posts in place; the page folds them.
 - Unit change: update `unit` (number, name, starts, ends, bigQuestion, terms, summative, next)
   and fill in that unit's name in `units`.

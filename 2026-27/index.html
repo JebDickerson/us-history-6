@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-title" content="US History">
 <meta name="theme-color" content="#f4ead9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c4673a'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%23fff' text-anchor='middle'%3EUS%3C/text%3E%3C/svg%3E">
-<title>Mr. Dickerson's US History</title>
+<title>Mr. Dickerson's U.S. History Class</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
@@ -82,6 +82,7 @@ button { font: inherit; color: inherit; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { font-size: .75rem; font-weight: 500; padding: 3px 10px; border-radius: 99px; background: var(--chip-bg); color: var(--ink-2); }
 .chip.green { background: var(--sage); color: var(--sage-ink); }
+.subtitle { font-size: 1.05rem; font-weight: 600; color: var(--sage-ink); }
 .stamp { color: var(--ink-2); font-size: .88rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
 .stamp .whatsnew { color: var(--ember); font-weight: 600; }
 
@@ -235,12 +236,9 @@ details[open] > summary::after { content: "\2212"; }
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="chips">
-      <span class="chip" id="chip-school"></span>
-      <span class="chip green" id="chip-course"></span>
-    </div>
     <div style="display:grid;gap:6px">
-      <h1>What's happening in US History</h1>
+      <h1>Mr. Dickerson's U.S. History Class</h1>
+      <p class="subtitle">WMMS &ndash; 6th Grade</p>
       <p class="stamp"><span id="updated"></span><span class="whatsnew" id="whatsnew" hidden></span></p>
     </div>
     <div class="route-wrap">
@@ -366,8 +364,6 @@ details[open] > summary::after { content: "\2212"; }
   const newPill = () => el("span", "new", "New");
 
   // ---- Header ----
-  $("chip-school").textContent = C.school + " · " + C.teacher;
-  $("chip-course").textContent = C.course;
   $("updated").textContent = "Updated " + fmt(day(C.updated), { weekday: "long", month: "short", day: "numeric" });
   const newDates = C.dates.filter((d) => isNew(d.added)).length;
   const newPosts = C.posts.filter((p) => isNew(p.added)).length;

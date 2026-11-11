@@ -45,7 +45,7 @@ window.CLASS = {
     terms: ["Motivation", "Obstacle", "Gold, God, and Glory", "Indigenous", "Interaction",
             "Accomplishments", "Columbian Exchange", "Northwest Passage", "Explorer vs. exploiter"],
     // What the unit's major summative looks like. null hides the line.
-    summative: null,
+    summative: "Students work through an evidence file on an assigned explorer and make a claim: was this person more of an explorer or more of an exploiter? They support the claim with evidence from the file.",
     next: "Unit 4, Colonial America, starts the week of Nov 16."
   },
 

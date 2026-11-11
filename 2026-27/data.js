@@ -6,6 +6,13 @@
   for A Day and B Day classes, give both:  a: "2026-11-10", b: "2026-11-11"
   For anything that's the same for everyone, use:  date: "2026-11-09"
 
+  "added" is the day something was put on the page. Families who haven't
+  visited since before that day see it marked "New".
+
+  If a date moves, change it and record the old one in "was" (same shape:
+  was: "2026-11-12"  or  was: { a: "2026-11-12", b: "2026-11-13" }).
+  The page then shows it as "Moved" with the old date crossed out.
+
   Types (these control the colored tag):
     "no-school", "formative", "reflection", "summative", "project", "homework", "event"
 */
@@ -16,58 +23,69 @@ window.CLASS = {
   school: "WMMS",
   email: "jebdickerson@lcps.org",
 
-  // For the mockup, the page pretends today is this date so the sample content
-  // lines up. Set it to null and the page uses the real date.
+  // Leave null to use the real date. Set a date only to preview the page as of that day.
   pretendToday: null,
 
-  // What unit you're in right now.
+  // The day of the most recent update. Shown at the top of the page.
+  updated: "2026-11-11",
+
+  // The year's units, in order. Shown as the route across the top.
+  // DRAFT: only Unit 3's name is known. Fill in the rest (and the right count).
+  units: [null, null, "European Exploration", null, null, null, null, null],
+
+  // The unit we're in now.
   unit: {
-    name: "Unit 3: European Exploration",
+    number: 3,
+    name: "European Exploration",
     // First day of the unit. "Past dates" only shows dates from this unit.
-    // Leave it null to show every past date in the list below.
+    // Leave it null to show every past date.
     starts: null,
     ends: "2026-11-17",
-    next: "Unit 4 starts the week of Nov 16, the last few days before Thanksgiving break."
+    // DRAFT: big question and key terms need Mr. Dickerson's wording.
+    bigQuestion: "Why did Europeans set out across the Atlantic, and how did it change life on both sides?",
+    terms: ["Age of Exploration", "Columbian Exchange", "Land claims"],
+    // What the unit's major summative looks like. null hides the line.
+    summative: null,
+    next: "Unit 4 starts the week of Nov 16."
   },
 
-  // The one thing families should know right now. Keep it short.
-  oneThing:
-    "We're at the end of Unit 3, with a few assessments in the next week. Please try to have your student in class as much as possible. We prioritize collaborative assessments, so when students are out, they have to do them alone.",
+  // The "This week" block at the top. Keep each to a sentence.
+  thisWeek: {
+    learning: "We're wrapping up Unit 3: how European exploration changed life on both sides of the Atlantic.",
+    // One thing families can do. null if there's nothing this week.
+    todo: "Help your student be in class for the Unit 3 summative. We take assessments together, so students who are out do them alone."
+  },
 
-  // Dates for the unit. Once a date passes it moves to the "Past dates" list.
+  // Dates. Once a date passes it moves to "Past dates" on its own.
   dates: [
-    { type: "no-school",  title: "No school for Diwali", date: "2026-11-09" },
+    { type: "no-school",  title: "No school for Diwali", date: "2026-11-09", added: "2026-11-02" },
     { type: "formative",  title: "Model & Practice",
       note: "Practice for the unit summative, and the formative before it.",
-      a: "2026-11-10", b: "2026-11-11" },
+      a: "2026-11-10", b: "2026-11-11", added: "2026-11-02" },
     { type: "reflection", title: "Unit 3 reflection",
-      note: "Odd-schedule day, so A Day classes get a little out of order.",
-      a: "2026-11-12", b: "2026-11-17" },
+      a: "2026-11-12", b: "2026-11-17", added: "2026-11-02" },
     { type: "summative",  title: "Unit 3 major summative",
-      note: "A/B swap on Monday 11/16: A Day classes take the summative that day.",
-      a: "2026-11-16", b: "2026-11-13" }
+      a: "2026-11-16", b: "2026-11-13", added: "2026-11-02" }
   ],
 
-  // Weekly posts, newest first. Photos live in the photos/ folder.
-  // The two newest show in full; older weeks fold into "Earlier weeks."
+  // Weekly posts, newest first: one strong photo and two or three sentences.
+  // The first photo is shown large; any others go in a row underneath.
+  // The two newest weeks show in full; older weeks fold into "Earlier weeks."
   posts: [
     {
       week: "2026-11-09",
+      added: "2026-11-11",
       title: "Unit 3 wraps up",
-      body: [
-        "Short week again, and it's a busy one. Model & Practice on Tuesday and Wednesday is the formative assessment and the practice round for the summative.",
-        "Because of Thursday's schedule, A Day and B Day swap order next week. A Day classes take the major summative on Monday 11/16, and B Day classes do the reflection on Tuesday 11/17. After that we start Unit 4."
-      ],
-      ask: "How should we remember the Age of Exploration? Whose perspectives should we keep in mind?"
+      text: "Model & Practice this week is both the formative assessment and the practice round for the summative. Next week brings the Unit 3 summative and reflection, and then we start Unit 4.",
+      ask: "How should we remember the Age of Exploration? Whose perspectives should we keep in mind?",
+      // DRAFT: hint for families on what a strong answer sounds like.
+      listenFor: "More than the explorers' side of the story: Native peoples, enslaved Africans, and how the Columbian Exchange affected each."
     },
     {
       week: "2026-11-02",
+      added: "2026-11-06",
       title: "The Columbian Exchange on big paper",
-      body: [
-        "We continued Day 5's lesson on the Columbian Exchange. In groups, students built concept maps (a powerful tool to show student thinking) tracing the crops, animals and diseases that crossed the Atlantic, and how each one changed life on both sides.",
-        "Groups didn't just list what crossed. They drew trails connecting items and explained each link along the way: crops that helped solve hunger, horses that changed how people hunted, and diseases that devastated Native peoples. The maps are up in the hallway now.",
-        "Thursday and Friday, in a station rotation, students looked at the five European countries that set out in the wake of Columbus's journey: their explorers, and where each one claimed land in the Americas."
-      ],
+      text: "In groups, students built concept maps tracing the crops, animals and diseases that crossed the Atlantic, explaining each link along the way. The maps are up in the hallway now.",
       photos: [
         { src: "photos/concept-map-1.jpg", caption: "Brooke and Noelle's concept map" },
         { src: "photos/concept-map-2.jpg", caption: "Notes written along every trail across the Atlantic" },
@@ -77,8 +95,7 @@ window.CLASS = {
     }
   ],
 
-  // Standing information. Families can find it any time, so it doesn't need
-  // to be repeated every week.
+  // Standing information. Always on the page, so it doesn't need repeating each week.
   reminders: [
     {
       title: "Absent for an assessment?",

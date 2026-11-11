@@ -13,13 +13,17 @@ weekly updates with photos, and standing class policies.
 
 ## Updating
 
-Open `2026-27/data.js` and edit the lists:
+The easy way: open a Claude Code session on this repo and say "weekly update". Claude asks a
+few questions (see `CLAUDE.md`), makes the changes, and hands back a short Friday email.
+
+To edit by hand, open `2026-27/data.js` and edit the lists:
 
 - `dates`: assessments, deadlines, days off. Use `date:` for things that are the same for
   everyone, or `a:` and `b:` for things that differ by A Day / B Day. Past dates drop off
   the page automatically.
 - `posts`: weekly updates, newest first. Add photos to `photos/` and list them in the post.
-- `oneThing`: the single most important thing for families right now.
+- `thisWeek`: one sentence on what we're learning, and one thing families can do (or `null`).
+- `unit` and `units`: the current unit's card and the route of units across the top.
 - `reminders`: standing policies (absences, retakes, sketchbooks).
 
 ## New school year

@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: one phone-width column of sections, carrying the newsletter's sand / sage / ember look into a page that updates in place. */
+/* Layout: one phone-width column. The top screen answers "what's coming and what do I do";
+   everything below it is for parents who want more. Sand / sage / ember from the newsletter. */
 :root {
   --bg: #f4ead9;
   --panel: #e9dcc7;
@@ -23,6 +24,7 @@
   --ember-soft: #f6dccb;
   --pine: #283124;
   --pine-ink: #eef2e6;
+  --pine-2: #c9dbb0;
   --ink: #2a241d;
   --ink-2: #6b6052;
   --line: #d9c9b1;
@@ -32,18 +34,12 @@
   --radius: 18px;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root {
     --bg: #1d1a16; --panel: #2a251f; --panel-soft: #24201b; --sage: #26301f; --sage-ink: #b5cf98;
-    --ember: #e38a5c; --ember-soft: #3d2a1f; --pine: #2f3a29; --pine-ink: #eef2e6;
+    --ember: #e38a5c; --ember-soft: #3d2a1f; --pine: #2f3a29; --pine-ink: #eef2e6; --pine-2: #c9dbb0;
     --ink: #f1e8da; --ink-2: #b4a793; --line: #3d362d; --chip-bg: #1f1b17; --shadow: none;
     color-scheme: dark;
   }
-}
-:root[data-theme="dark"] {
-  --bg: #1d1a16; --panel: #2a251f; --panel-soft: #24201b; --sage: #26301f; --sage-ink: #b5cf98;
-  --ember: #e38a5c; --ember-soft: #3d2a1f; --pine: #2f3a29; --pine-ink: #eef2e6;
-  --ink: #f1e8da; --ink-2: #b4a793; --line: #3d362d; --chip-bg: #1f1b17; --shadow: none;
-  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -56,36 +52,63 @@ body {
   background: var(--bg); color: var(--ink); font-family: var(--font);
   font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
 }
+img { max-width: 100%; }
 .wrap {
-  max-width: 760px; margin: 0 auto;
+  max-width: 720px; margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 20px 48px;
-  display: grid; gap: 28px;
+  display: grid; gap: 32px;
 }
+.wrap > * { min-width: 0; }
 h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.15; }
-h1 { font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 800; letter-spacing: -.02em; }
-h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.01em; }
+h1 { font-size: clamp(1.6rem, 5.4vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; }
 h3 { font-size: 1.1rem; font-weight: 700; }
 p { margin: 0; }
-.eyebrow {
-  font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ember);
-}
+.eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ember); }
 .sub { color: var(--ink-2); font-size: .9rem; }
-.section { display: grid; gap: 14px; }
+.section { display: grid; gap: 14px; min-width: 0; }
 .section-head { display: grid; gap: 2px; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2.5px solid var(--ember); outline-offset: 2px; }
+.new {
+  font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #fff; background: var(--ember); padding: 2px 7px; border-radius: 99px; white-space: nowrap;
+}
 
 /* Header */
-.top { background: var(--panel); border-radius: 26px; padding: 22px; display: grid; gap: 16px; }
+.top { background: var(--panel); border-radius: 26px; padding: 22px; display: grid; gap: 18px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip {
-  font-size: .75rem; font-weight: 500; padding: 3px 10px; border-radius: 99px;
-  background: var(--chip-bg); color: var(--ink-2);
-}
+.chip { font-size: .75rem; font-weight: 500; padding: 3px 10px; border-radius: 99px; background: var(--chip-bg); color: var(--ink-2); }
 .chip.green { background: var(--sage); color: var(--sage-ink); }
-.today { color: var(--ink-2); font-weight: 500; }
+.stamp { color: var(--ink-2); font-size: .88rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.stamp .whatsnew { color: var(--ember); font-weight: 600; }
+
+/* The year as a route */
+.route-wrap { display: grid; gap: 8px; }
+.route { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.route li { position: relative; display: grid; justify-items: center; }
+.route li::before {
+  content: ""; position: absolute; top: 12px; right: 50%; width: 100%; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 9px);
+}
+.route li:first-child::before { display: none; }
+.route li.done::before, .route li.here::before { background: var(--sage-ink); }
+.stop {
+  position: relative; z-index: 1; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .75rem; font-weight: 700;
+  background: var(--chip-bg); color: var(--ink-2); border: 2px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.done .stop { background: var(--sage-ink); border-color: var(--sage-ink); color: var(--panel-soft); }
+.here .stop {
+  width: 34px; height: 34px; margin-top: -4px; font-size: .9rem;
+  background: var(--ember); border-color: var(--ember); color: #fff;
+  box-shadow: 0 0 0 4px var(--ember-soft);
+}
+.route-label { font-size: .88rem; }
+.route-label strong { font-weight: 700; }
 
 .daypick { display: grid; gap: 8px; }
 .daypick-label { font-size: .85rem; font-weight: 600; }
@@ -96,36 +119,33 @@ button { font: inherit; color: inherit; }
 }
 .seg button[aria-pressed="true"] { background: var(--ember); color: #fff; }
 
-/* Next up */
-.next {
-  background: var(--panel-soft); border-radius: var(--radius); padding: 18px 20px;
-  display: grid; gap: 6px; box-shadow: var(--shadow);
-}
-.next .when { font-size: 2rem; font-weight: 800; color: var(--ember); letter-spacing: -.02em; line-height: 1.1; }
-.next .what { font-size: 1.05rem; font-weight: 600; }
-.onething { background: var(--ember-soft); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
-.onething p { font-size: .93rem; }
+/* This week */
+.week-box { background: var(--panel-soft); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.week-next { padding: 18px 20px 16px; display: grid; gap: 4px; }
+.week-next .when { font-size: 2.1rem; font-weight: 800; color: var(--ember); letter-spacing: -.02em; line-height: 1.05; }
+.week-next .what { font-size: 1.05rem; font-weight: 600; }
+.week-rows { display: grid; }
+.week-row { display: grid; grid-template-columns: 74px 1fr; gap: 12px; padding: 12px 20px; border-top: 1px solid var(--line); }
+.week-row.todo { background: var(--ember-soft); border-top-color: transparent; }
+.week-row .k { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); padding-top: 3px; }
+.week-row.todo .k { color: var(--ember); }
+.week-row p { font-size: .95rem; min-width: 0; }
 
 /* Coming up */
 .list { background: var(--panel); border-radius: var(--radius); padding: 6px; display: grid; gap: 4px; }
-.row {
-  display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start;
-  padding: 12px 14px; border-radius: 13px; background: var(--panel-soft);
-}
+.row { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start; padding: 12px 14px; border-radius: 13px; background: var(--panel-soft); }
 .row.is-today { outline: 2px solid var(--ember); outline-offset: -2px; }
 .date { display: grid; font-variant-numeric: tabular-nums; }
 .date .dow { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
 .date .md { font-size: 1.25rem; font-weight: 800; line-height: 1.15; }
 .date .both { font-size: .82rem; font-weight: 600; line-height: 1.5; }
-.date .both span { color: var(--ink-2); font-weight: 500; }
-.date .both s { color: var(--ink-2); font-weight: 500; }
+.date .both span, .date .both s { color: var(--ink-2); font-weight: 500; }
 .row-body { min-width: 0; display: grid; gap: 4px; }
 .row-title { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
 .row-note { font-size: .88rem; color: var(--ink-2); }
-.tag {
-  font-size: .7rem; font-weight: 600; padding: 2px 9px; border-radius: 99px;
-  border: 1px solid currentColor; white-space: nowrap;
-}
+.moved { font-size: .85rem; color: var(--ember); font-weight: 600; }
+.moved s { color: var(--ink-2); font-weight: 500; }
+.tag { font-size: .7rem; font-weight: 600; padding: 2px 9px; border-radius: 99px; border: 1px solid currentColor; white-space: nowrap; }
 .tag.no-school { color: var(--ink-2); }
 .tag.formative, .tag.homework { color: var(--ember); }
 .tag.reflection, .tag.event { color: var(--sage-ink); }
@@ -133,77 +153,68 @@ button { font: inherit; color: inherit; }
 .badge-today { font-size: .7rem; font-weight: 700; color: var(--ember); letter-spacing: .06em; text-transform: uppercase; }
 .empty { padding: 16px; color: var(--ink-2); }
 
-/* Unit strip */
-.unit { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; padding: 0 4px; }
-.unit strong { font-weight: 700; }
+/* Unit card */
+.unit-card { background: var(--sage); border-radius: var(--radius); padding: 20px; display: grid; gap: 14px; }
+.unit-card .eyebrow { color: var(--sage-ink); }
+.bigq { font-size: 1.3rem; font-weight: 700; line-height: 1.3; text-wrap: balance; }
+.terms { display: flex; flex-wrap: wrap; gap: 6px; }
+.term { background: var(--panel-soft); padding: 4px 12px; border-radius: 99px; font-size: .88rem; font-weight: 500; }
+.unit-meta { display: grid; gap: 6px; font-size: .92rem; }
+.unit-meta .k { font-weight: 700; }
 
 /* Posts */
-.post { display: grid; gap: 14px; }
-.post-card { background: var(--sage); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; }
-.post-card .eyebrow { color: var(--sage-ink); }
-.post-card p { max-width: 62ch; }
-.photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.photo { margin: 0; display: grid; gap: 6px; }
-.photo button { border: 0; padding: 0; background: none; cursor: zoom-in; border-radius: 14px; overflow: hidden; display: block; }
-.photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .25s ease; }
-.photo button:hover img { transform: scale(1.03); }
-.photo figcaption { font-size: .8rem; color: var(--ink-2); padding: 0 2px; }
-.ask {
-  background: var(--pine); color: var(--pine-ink); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px;
-}
-.ask .eyebrow { color: #c9dbb0; }
+.post { display: grid; gap: 12px; min-width: 0; }
+.hero { border: 0; padding: 0; background: none; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; display: block; width: 100%; }
+.hero img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .3s ease; }
+.hero:hover img { transform: scale(1.02); }
+.post-text { display: grid; gap: 6px; padding: 0 2px; }
+.post-text .head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.post-text .eyebrow { color: var(--sage-ink); }
+.post-text p { max-width: 62ch; }
+.post-cap { font-size: .8rem; color: var(--ink-2); }
+.strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; min-width: 0; }
+.strip button { flex: 0 0 34%; max-width: 180px; border: 0; padding: 0; background: none; cursor: zoom-in; border-radius: 12px; overflow: hidden; scroll-snap-align: start; }
+.strip img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.ask { background: var(--pine); color: var(--pine-ink); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; }
+.ask .eyebrow { color: var(--pine-2); }
 .ask q { font-size: 1.15rem; font-weight: 600; line-height: 1.4; quotes: "\201C" "\201D"; }
-.older { border-top: 1px solid var(--line); padding-top: 22px; }
+.ask .listen { font-size: .9rem; color: var(--pine-2); border-top: 1px solid rgba(201, 219, 176, .25); padding-top: 10px; }
+.ask .listen b { color: var(--pine-ink); font-weight: 600; }
+.older { border-top: 1px solid var(--line); padding-top: 24px; }
 
-/* Past dates and earlier weeks */
+/* Folds: past dates, earlier weeks, good to know */
+details { background: var(--panel-soft); border-radius: 14px; padding: 2px 16px; box-shadow: var(--shadow); }
+summary { cursor: pointer; font-weight: 700; padding: 12px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-weight: 500; font-size: 1.3rem; color: var(--ember); line-height: 1; }
+details[open] > summary::after { content: "\2212"; }
+.faq { display: grid; gap: 8px; }
+.faq details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-width: 62ch; }
 .fold { background: transparent; box-shadow: none; padding: 0; }
-.fold > summary {
-  padding: 10px 14px; border-radius: 12px; background: var(--panel-soft);
-  font-size: .92rem; font-weight: 600; color: var(--ink-2);
-}
+.fold > summary { padding: 10px 14px; border-radius: 12px; background: var(--panel-soft); font-size: .92rem; font-weight: 600; color: var(--ink-2); }
 .fold[open] > summary { margin-bottom: 8px; }
 .fold .row { opacity: .8; }
 .fold .list { background: transparent; padding: 0; }
-.earlier { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 22px; }
+.earlier { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 24px; }
 .earlier-list { display: grid; gap: 8px; }
-.week > summary { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
-.week > summary .wk { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sage-ink); }
-.week > summary .ttl { flex: 1 1 200px; min-width: 0; }
-.week > summary::after { margin-left: auto; }
-.week .post { padding-bottom: 14px; }
-.week .post-card .eyebrow, .week .post-card h3 { display: none; }
-.week .post p { padding-bottom: 0; color: inherit; font-size: inherit; }
-
-/* Good to know */
-.faq { display: grid; gap: 8px; }
-details { background: var(--panel-soft); border-radius: 14px; padding: 2px 16px; box-shadow: var(--shadow); }
-summary {
-  cursor: pointer; font-weight: 700; padding: 12px 0; list-style: none;
-  display: flex; justify-content: space-between; gap: 12px; align-items: center;
-}
-summary::-webkit-details-marker { display: none; }
-summary::after { content: "+"; font-weight: 500; font-size: 1.3rem; color: var(--ember); line-height: 1; }
-details[open] summary::after { content: "\2212"; }
-details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-width: 62ch; }
+.wk-fold > summary { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
+.wk-fold > summary .wk { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sage-ink); }
+.wk-fold > summary .ttl { flex: 1 1 200px; min-width: 0; }
+.wk-fold .post { padding-bottom: 16px; }
+.wk-fold .post-text .head { display: none; }
 
 /* Footer */
-.foot {
-  display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
-  border-top: 1px solid var(--line); padding-top: 20px;
-}
+.foot { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 20px; }
 .foot .who { display: grid; gap: 2px; }
 .foot .name { font-size: 1.2rem; font-weight: 600; }
 .mail { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.mail code { font-family: var(--font); font-size: .9rem; user-select: all; overflow-wrap: anywhere; }
-.btn {
-  border: 0; background: var(--ember); color: #fff; font-weight: 600; font-size: .85rem;
-  padding: 8px 16px; border-radius: 99px; cursor: pointer;
-}
+.mail a { color: var(--ink); font-size: .95rem; overflow-wrap: anywhere; }
+.btn { border: 0; background: var(--ember); color: #fff; font-weight: 600; font-size: .85rem; padding: 8px 16px; border-radius: 99px; cursor: pointer; }
 .tip { font-size: .82rem; color: var(--ink-2); }
 
 /* Lightbox */
 .lb {
-  position: fixed; inset: 0; background: rgba(20, 16, 12, .88); display: grid; place-items: center;
+  position: fixed; inset: 0; background: rgba(20, 16, 12, .9); display: grid; place-items: center;
   padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
   z-index: 50; cursor: zoom-out;
 }
@@ -212,14 +223,13 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
 .lb figcaption { color: #f1e8da; text-align: center; font-size: .9rem; }
 
 @media (min-width: 640px) {
-  .wrap { padding-block: 32px 64px; gap: 34px; }
+  .wrap { padding-block: 32px 64px; gap: 38px; }
   .top { padding: 30px; }
-  .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .row { grid-template-columns: 110px 1fr; }
+  .week-row { grid-template-columns: 90px 1fr; }
 }
-@media (prefers-reduced-motion: reduce) { .photo img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .hero img { transition: none; } }
 </style>
-
 </head>
 <body>
 <div class="wrap">
@@ -230,7 +240,11 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     </div>
     <div style="display:grid;gap:6px">
       <h1>What's happening in US History</h1>
-      <p class="today" id="today-line"></p>
+      <p class="stamp"><span id="updated"></span><span class="whatsnew" id="whatsnew" hidden></span></p>
+    </div>
+    <div class="route-wrap">
+      <ol class="route" id="route" aria-label="Units this year"></ol>
+      <p class="route-label" id="route-label"></p>
     </div>
     <div class="daypick">
       <span class="daypick-label" id="daypick-label">My student has class on</span>
@@ -242,37 +256,45 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     </div>
   </header>
 
-  <section class="section" aria-labelledby="next-h">
-    <div class="next" id="next">
-      <span class="eyebrow" id="next-h">Next up for your student</span>
+  <section class="week-box" aria-labelledby="week-h">
+    <div class="week-next" id="next">
+      <span class="eyebrow" id="week-h">This week</span>
       <span class="when" id="next-when"></span>
       <span class="what" id="next-what"></span>
     </div>
-    <div class="onething">
-      <span class="eyebrow">The one thing</span>
-      <p id="one-thing"></p>
+    <div class="week-rows">
+      <div class="week-row todo" id="todo-row"><span class="k">Do this</span><p id="todo"></p></div>
+      <div class="week-row"><span class="k">Learning</span><p id="learning"></p></div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="coming-h">
     <div class="section-head">
       <h2 id="coming-h">Coming up</h2>
-      <p class="sub">Assessments and deadlines. Dates can shift, and this list always has the current ones.</p>
+      <p class="sub">If a date changes, it's marked here.</p>
     </div>
     <div class="list" id="dates"></div>
     <details class="fold" id="past" hidden>
       <summary id="past-sum">Past dates</summary>
       <div class="list" id="past-list"></div>
     </details>
-    <p class="unit sub" id="unit"></p>
   </section>
 
   <section class="section" aria-labelledby="posts-h">
     <div class="section-head">
       <h2 id="posts-h">In class</h2>
-      <p class="sub">What we've been doing, newest first.</p>
+      <p class="sub">A look inside the room each week.</p>
     </div>
-    <div id="posts" style="display:grid;gap:28px"></div>
+    <div id="posts" style="display:grid;gap:28px;min-width:0"></div>
+  </section>
+
+  <section class="section" aria-labelledby="unit-h">
+    <div class="unit-card">
+      <span class="eyebrow" id="unit-h"></span>
+      <p class="bigq" id="bigq"></p>
+      <div class="terms" id="terms" aria-label="Key terms"></div>
+      <div class="unit-meta" id="unit-meta"></div>
+    </div>
   </section>
 
   <section class="section" aria-labelledby="faq-h">
@@ -288,7 +310,7 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
       <span class="sub">Questions? Email me.</span>
       <span class="name" id="foot-name"></span>
       <div class="mail">
-        <code id="email"></code>
+        <a id="email"></a>
         <button class="btn" type="button" id="copy">Copy email</button>
       </div>
     </div>
@@ -308,12 +330,12 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
   const $ = (id) => document.getElementById(id);
   const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
 
-  // Dates: parse "YYYY-MM-DD" as a local calendar day.
+  // ---- Dates ----
   const day = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const now = new Date();
   const TODAY = C.pretendToday ? day(C.pretendToday) : new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const DAY_MS = 86400000;
-  const diff = (d) => Math.round((d - TODAY) / DAY_MS);
+  const diff = (d) => Math.round((d - TODAY) / 86400000);
   const fmt = (d, o) => d.toLocaleDateString("en-US", o);
   const md = (d) => fmt(d, { month: "short", day: "numeric" });
   const nd = (d) => (d.getMonth() + 1) + "/" + d.getDate();
@@ -327,25 +349,70 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
   };
   const typeLabel = { "no-school": "No school", formative: "Formative", reflection: "Reflection", summative: "Major summative", project: "Project", homework: "Homework", event: "Heads up" };
 
-  // Header
+  // ---- Remembered on this device only ----
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  // "New since your last visit": compare each item's "added" day with the last day this device visited.
+  const todayIso = iso(TODAY);
+  let prevVisit = store.get("prevVisit");
+  const lastVisit = store.get("lastVisit");
+  if (lastVisit && lastVisit !== todayIso) { prevVisit = lastVisit; store.set("prevVisit", prevVisit); }
+  store.set("lastVisit", todayIso);
+  const isNew = (added) => !!(prevVisit && added && added > prevVisit);
+  const newPill = () => el("span", "new", "New");
+
+  // ---- Header ----
   $("chip-school").textContent = C.school + " · " + C.teacher;
   $("chip-course").textContent = C.course;
-  $("today-line").textContent = fmt(TODAY, { weekday: "long", month: "long", day: "numeric" });
-  $("one-thing").textContent = C.oneThing;
+  $("updated").textContent = "Updated " + fmt(day(C.updated), { weekday: "long", month: "short", day: "numeric" });
+  const newDates = C.dates.filter((d) => isNew(d.added)).length;
+  const newPosts = C.posts.filter((p) => isNew(p.added)).length;
+  if (newDates || newPosts) {
+    const parts = [];
+    if (newDates) parts.push(newDates + (newDates === 1 ? " new date" : " new dates"));
+    if (newPosts) parts.push(newPosts + (newPosts === 1 ? " new post" : " new posts"));
+    $("whatsnew").textContent = parts.join(", ") + " since " + md(day(prevVisit));
+    $("whatsnew").hidden = false;
+  }
+
+  // The year as a route of units.
+  const U = C.unit;
+  (C.units || []).forEach((name, i) => {
+    const n = i + 1;
+    const li = el("li", n < U.number ? "done" : n === U.number ? "here" : "");
+    const stop = el("span", "stop", String(n));
+    stop.title = "Unit " + n + (name ? ": " + name : "");
+    if (n === U.number) li.setAttribute("aria-current", "step");
+    li.append(stop);
+    $("route").append(li);
+  });
+  const rl = $("route-label");
+  rl.append(el("strong", null, "Unit " + U.number + ": " + U.name), document.createTextNode(" · wraps up " + md(day(U.ends))));
+  if (!C.units || !C.units.length) $("route").hidden = true;
+
+  // This week
+  $("learning").textContent = C.thisWeek.learning;
+  if (C.thisWeek.todo) $("todo").textContent = C.thisWeek.todo; else $("todo-row").hidden = true;
+
+  // Unit card
+  $("unit-h").textContent = "Unit " + U.number + " at a glance";
+  $("bigq").textContent = U.bigQuestion || "";
+  (U.terms || []).forEach((t) => $("terms").append(el("span", "term", t)));
+  if (U.summative) { const p = el("p"); p.append(el("span", "k", "The summative: "), document.createTextNode(U.summative)); $("unit-meta").append(p); }
+  if (U.next) { const p = el("p"); p.append(el("span", "k", "Next: "), document.createTextNode(U.next)); $("unit-meta").append(p); }
+
+  // Footer
   $("foot-name").textContent = C.teacher;
   $("email").textContent = C.email;
-  $("unit").innerHTML = "";
-  const u1 = el("strong", null, C.unit.name), u2 = el("span", null, "wraps up " + md(day(C.unit.ends)) + ". " + C.unit.next);
-  $("unit").append(u1, u2);
+  $("email").href = "mailto:" + C.email;
 
-  // A Day / B Day choice, remembered on this device.
-  let choice = "both";
-  try { choice = localStorage.getItem("abday") || "both"; } catch (e) {}
-
-  function datesFor(item) {
-    if (item.date) return { a: day(item.date), b: day(item.date), same: true };
-    return { a: day(item.a), b: day(item.b), same: item.a === item.b };
-  }
+  // ---- A Day / B Day ----
+  let choice = store.get("abday") || "both";
+  const datesFor = (x) => x.date ? { a: day(x.date), b: day(x.date), same: true } : { a: day(x.a), b: day(x.b), same: x.a === x.b };
+  const pick = (d) => choice === "a" ? [d.a] : choice === "b" ? [d.b] : d.same ? [d.a] : [d.a, d.b];
 
   function buildRow({ it, d, mine }) {
     const row = el("div", "row");
@@ -355,8 +422,7 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     if (choice === "both" && !d.same) {
       [["A", d.a], ["B", d.b]].forEach(([lab, x]) => {
         const line = el("div", "both");
-        const txt = lab + " · " + dow(x) + " " + nd(x);
-        if (diff(x) < 0) line.append(el("s", null, txt));
+        if (diff(x) < 0) line.append(el("s", null, lab + " · " + dow(x) + " " + nd(x)));
         else line.append(el("span", null, lab + " · "), document.createTextNode(dow(x) + " " + nd(x)));
         dateCol.append(line);
       });
@@ -368,7 +434,23 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     const title = el("div", "row-title");
     title.append(el("span", null, it.title), el("span", "tag " + it.type, typeLabel[it.type] || it.type));
     if (isToday) title.append(el("span", "badge-today", "Today"));
+    if (isNew(it.added)) title.append(newPill());
     body.append(title);
+    // Moved: show the old date for this family's day, if it changed for them.
+    if (it.was) {
+      const w = typeof it.was === "string" ? { a: day(it.was), b: day(it.was) } : { a: day(it.was.a), b: day(it.was.b) };
+      const changed = [["A", w.a, d.a], ["B", w.b, d.b]].filter(([lab, o, n]) => +o !== +n && (choice === "both" || choice === lab.toLowerCase()));
+      const shown = d.same && changed.length === 2 ? changed.slice(0, 1) : changed;
+      if (shown.length) {
+        const m = el("p", "moved");
+        m.append(document.createTextNode("Moved from "));
+        shown.forEach(([lab, o], i) => {
+          if (i) m.append(document.createTextNode(", "));
+          m.append(el("s", null, (choice === "both" && !d.same ? lab + " " : "") + dow(o) + " " + nd(o)));
+        });
+        body.append(m);
+      }
+    }
     if (it.note) body.append(el("p", "row-note", it.note));
     row.append(dateCol, body);
     return row;
@@ -377,90 +459,94 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
   function render() {
     document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.day === choice)));
 
-    // Sort every date into upcoming or past for this choice.
     const all = C.dates.map((it) => {
       const d = datesFor(it);
-      const mine = choice === "a" ? [d.a] : choice === "b" ? [d.b] : d.same ? [d.a] : [d.a, d.b];
+      const mine = pick(d);
       const upcoming = mine.filter((x) => diff(x) >= 0);
       return { it, d, mine, upcoming,
         sortKey: upcoming.length ? Math.min(...upcoming.map(Number)) : Infinity,
         last: Math.max(...mine.map(Number)) };
     });
     const items = all.filter((x) => x.upcoming.length).sort((x, y) => x.sortKey - y.sortKey);
-    const unitStart = C.unit && C.unit.starts ? day(C.unit.starts) : null;
-    const past = all.filter((x) => !x.upcoming.length && (!unitStart || x.last >= unitStart))
-      .sort((x, y) => y.last - x.last);
+    const unitStart = U.starts ? day(U.starts) : null;
+    const past = all.filter((x) => !x.upcoming.length && (!unitStart || x.last >= +unitStart)).sort((x, y) => y.last - x.last);
 
     const list = $("dates");
     list.replaceChildren();
     if (!items.length) list.append(el("p", "empty", "Nothing scheduled right now."));
     items.forEach((x) => list.append(buildRow(x)));
 
-    const pastBox = $("past");
     $("past-list").replaceChildren(...past.map(buildRow));
     $("past-sum").textContent = (unitStart ? "Past dates this unit" : "Past dates") + " (" + past.length + ")";
-    pastBox.hidden = !past.length;
+    $("past").hidden = !past.length;
 
-    // Next up: first upcoming item that isn't a day off.
+    // This week: the next date that isn't a day off.
     const next = items.find((x) => x.it.type !== "no-school") || items[0];
-    const nextBox = $("next");
-    if (!next) { nextBox.hidden = true; return; }
-    nextBox.hidden = false;
-    const when = Math.min(...next.upcoming.map(Number));
-    $("next-h").textContent = choice === "both" ? "Next up" : "Next up for your student";
-    $("next-when").textContent = relative(new Date(when));
+    $("week-h").textContent = choice === "both" ? "Next up" : "Next up for your student";
+    if (!next) {
+      $("next-when").textContent = "Nothing due";
+      $("next-what").textContent = "No assessments or deadlines on the calendar right now.";
+      return;
+    }
+    const when = new Date(Math.min(...next.upcoming.map(Number)));
+    $("next-when").textContent = relative(when);
     let what = next.it.title;
-    if (choice === "both" && !next.d.same) what += " (A Day " + md(next.d.a) + ", B Day " + md(next.d.b) + ")";
-    else what += " · " + fmt(new Date(when), { weekday: "long", month: "short", day: "numeric" });
+    if (choice === "both" && !next.d.same) what += " · A Day " + md(next.d.a) + ", B Day " + md(next.d.b);
+    else if (diff(when) > 1) what += " · " + fmt(when, { weekday: "long", month: "short", day: "numeric" });
     $("next-what").textContent = what;
   }
 
   document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
     choice = b.dataset.day;
-    try { localStorage.setItem("abday", choice); } catch (e) {}
+    store.set("abday", choice);
     render();
   }));
   render();
 
-  // Posts
-  const thisWeek = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
-  const posts = $("posts");
-  const SHOW_IN_FULL = 2; // how many recent weeks show open; older ones fold into "Earlier weeks"
-  const weekLabel = (wk) => diff(wk) === diff(thisWeek) ? "This week · " + md(wk) : "Week of " + md(wk);
+  // ---- Posts ----
+  const SHOW_IN_FULL = 2; // newest weeks shown open; older ones fold into "Earlier weeks"
+  const monday = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
+  const weekLabel = (wk) => +wk === +monday ? "This week" : "Week of " + md(wk);
+
+  function photoButton(ph, cls) {
+    const b = el("button", cls);
+    b.type = "button";
+    b.setAttribute("aria-label", "Enlarge photo: " + ph.caption);
+    const img = el("img");
+    img.src = ph.src; img.alt = ph.caption; img.loading = "lazy";
+    b.append(img);
+    b.addEventListener("click", () => openLb(ph));
+    return b;
+  }
 
   function buildPost(p, cls) {
-    const wk = day(p.week);
     const art = el("article", cls);
-    const card = el("div", "post-card");
-    card.append(el("span", "eyebrow", weekLabel(wk)), el("h3", null, p.title));
-    p.body.forEach((t) => card.append(el("p", null, t)));
-    art.append(card);
-    if (p.photos && p.photos.length) {
-      const grid = el("div", "photos");
-      p.photos.forEach((ph) => {
-        const fig = el("figure", "photo");
-        const btn = el("button");
-        btn.type = "button";
-        btn.setAttribute("aria-label", "Enlarge photo: " + ph.caption);
-        const img = el("img");
-        img.src = ph.src; img.alt = ph.caption; img.loading = "lazy";
-        btn.append(img);
-        btn.addEventListener("click", () => openLb(ph));
-        fig.append(btn, el("figcaption", null, ph.caption));
-        grid.append(fig);
-      });
-      art.append(grid);
+    const photos = p.photos || [];
+    if (photos.length) art.append(photoButton(photos[0], "hero"));
+    const t = el("div", "post-text");
+    const head = el("div", "head");
+    head.append(el("span", "eyebrow", weekLabel(day(p.week))));
+    if (isNew(p.added)) head.append(newPill());
+    t.append(head, el("h3", null, p.title), el("p", null, p.text));
+    if (photos.length) t.append(el("p", "post-cap", "Photo: " + photos[0].caption + (photos.length > 1 ? ". Swipe for " + (photos.length - 1) + " more." : "")));
+    art.append(t);
+    if (photos.length > 1) {
+      const strip = el("div", "strip");
+      strip.setAttribute("aria-label", "More photos");
+      photos.slice(1).forEach((ph) => strip.append(photoButton(ph)));
+      art.append(strip);
     }
     if (p.ask) {
       const ask = el("div", "ask");
       ask.append(el("span", "eyebrow", "Ask your student at dinner"), el("q", null, p.ask));
+      if (p.listenFor) { const l = el("p", "listen"); l.append(el("b", null, "Listen for: "), document.createTextNode(p.listenFor)); ask.append(l); }
       art.append(ask);
     }
     return art;
   }
 
-  C.posts.slice(0, SHOW_IN_FULL).forEach((p, i) => posts.append(buildPost(p, "post" + (i > 0 ? " older" : ""))));
-
+  const posts = $("posts");
+  C.posts.slice(0, SHOW_IN_FULL).forEach((p, i) => posts.append(buildPost(p, "post" + (i ? " older" : ""))));
   const older = C.posts.slice(SHOW_IN_FULL);
   if (older.length) {
     const wrap = el("div", "earlier");
@@ -468,7 +554,7 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     head.append(el("h3", null, "Earlier weeks"), el("p", "sub", "Tap a week to open it."));
     const listEl = el("div", "earlier-list");
     older.forEach((p) => {
-      const det = el("details", "week");
+      const det = el("details", "wk-fold");
       det.id = "week-" + p.week;
       const sum = el("summary");
       sum.append(el("span", "wk", "Week of " + md(day(p.week))), el("span", "ttl", p.title));
@@ -479,7 +565,7 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     posts.append(wrap);
   }
 
-  // Good to know
+  // ---- Good to know ----
   C.reminders.forEach((r, i) => {
     const d = el("details");
     d.id = "faq-" + i;
@@ -487,24 +573,19 @@ details p { padding-bottom: 14px; font-size: .93rem; color: var(--ink-2); max-wi
     $("faq").append(d);
   });
 
-  // Lightbox
+  // ---- Lightbox ----
   const lb = $("lb");
   function openLb(ph) { $("lb-img").src = ph.src; $("lb-img").alt = ph.caption; $("lb-cap").textContent = ph.caption; lb.hidden = false; }
   lb.addEventListener("click", () => { lb.hidden = true; });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") lb.hidden = true; });
 
-  // Copy email
+  // ---- Copy email ----
   $("copy").addEventListener("click", () => {
     const b = $("copy");
     const done = () => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy email"), 1600); };
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(C.email).then(done, () => selectEmail());
-    } else selectEmail();
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents($("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard) navigator.clipboard.writeText(C.email).then(done, fallback); else fallback();
   });
-  function selectEmail() {
-    const r = document.createRange(); r.selectNodeContents($("email"));
-    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-  }
 })();
 </script>
 </body>

@@ -30,8 +30,8 @@ window.CLASS = {
   updated: "2026-11-11",
 
   // The year's units, in order. Shown as the route across the top.
-  // DRAFT: only Unit 3's name is known. Fill in the rest (and the right count).
-  units: [null, null, "European Exploration", null, null, null, null, null],
+  units: ["Geography", "Indigenous Americans", "European Exploration", "Colonial America",
+          "Revolution", "New Nation", "Westward Expansion and Reforms", "Civil War"],
 
   // The unit we're in now.
   unit: {
@@ -46,7 +46,7 @@ window.CLASS = {
     terms: ["Age of Exploration", "Columbian Exchange", "Land claims"],
     // What the unit's major summative looks like. null hides the line.
     summative: null,
-    next: "Unit 4 starts the week of Nov 16."
+    next: "Unit 4, Colonial America, starts the week of Nov 16."
   },
 
   // The "This week" block at the top. Keep each to a sentence.

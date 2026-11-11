@@ -41,8 +41,8 @@ window.CLASS = {
     // Leave it null to show every past date.
     starts: null,
     ends: "2026-11-17",
-    // DRAFT: big question and key terms need Mr. Dickerson's wording.
-    bigQuestion: "Why did Europeans set out across the Atlantic, and how did it change life on both sides?",
+    bigQuestion: "How should we remember the Age of Exploration?",
+    // DRAFT: key terms need Mr. Dickerson's list.
     terms: ["Age of Exploration", "Columbian Exchange", "Land claims"],
     // What the unit's major summative looks like. null hides the line.
     summative: null,

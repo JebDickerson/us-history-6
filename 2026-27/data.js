@@ -42,8 +42,8 @@ window.CLASS = {
     starts: null,
     ends: "2026-11-17",
     bigQuestion: "How should we remember the Age of Exploration?",
-    // DRAFT: key terms need Mr. Dickerson's list.
-    terms: ["Age of Exploration", "Columbian Exchange", "Land claims"],
+    terms: ["Motivation", "Obstacle", "Gold, God, and Glory", "Indigenous", "Interaction",
+            "Accomplishments", "Columbian Exchange", "Northwest Passage", "Explorer vs. exploiter"],
     // What the unit's major summative looks like. null hides the line.
     summative: null,
     next: "Unit 4, Colonial America, starts the week of Nov 16."

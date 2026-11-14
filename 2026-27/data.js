@@ -28,7 +28,7 @@ window.CLASS = {
   pretendToday: null,
 
   // The day of the most recent update. Shown at the top of the page.
-  updated: "2026-11-11",
+  updated: "2026-11-14",
 
   // The year's units, in order. Shown as the route across the top.
   units: ["Geography", "Indigenous Americans", "European Exploration", "Colonial America",
@@ -52,9 +52,12 @@ window.CLASS = {
 
   // The "This week" block at the top. Keep each to a sentence.
   thisWeek: {
-    learning: "We're wrapping up Unit 3: how European exploration changed life on both sides of the Atlantic.",
+    learning: "We're closing out Unit 3 and starting Unit 4, Colonial America, beginning with the Transatlantic Slave Trade and Point Comfort, then Roanoke and Jamestown.",
+    // The thinking move we're leaning on right now. Must match a name in thinkingMoves below.
+    thinking: "Reasoning with Evidence",
+    thinkingNote: "Making a claim and backing it up with what the sources actually say, like students did with their explorer evidence files.",
     // One thing families can do. null if there's nothing this week.
-    todo: "Help your student be in class for the Unit 3 summative, and make sure their sketchbook is ready. It's due that same day. We take assessments together, so students who are out do them alone."
+    todo: "Unit 4 starts with a brief, age-appropriate lesson on the Transatlantic Slave Trade. Your student may have questions at the dinner table, so I wanted you to be aware."
   },
 
   // Dates. Once a date passes it moves to "Past dates" on its own.
@@ -63,13 +66,35 @@ window.CLASS = {
     { type: "formative",  title: "Model & Practice",
       note: "Practice for the unit summative, and the formative before it.",
       a: "2026-11-10", b: "2026-11-11", added: "2026-11-02" },
-    { type: "minor", title: "Unit 3 reflection",
-      a: "2026-11-12", b: "2026-11-17", added: "2026-11-02" },
     { type: "summative",  title: "Unit 3 major summative",
       a: "2026-11-16", b: "2026-11-13", added: "2026-11-02" },
     { type: "minor", title: "Sketchbook due",
       note: "Sketchbooks are always due the day of the unit's major summative.",
-      a: "2026-11-16", b: "2026-11-13", added: "2026-11-11" }
+      a: "2026-11-16", b: "2026-11-13", added: "2026-11-11" },
+    { type: "minor", title: "Unit 3 reflection due",
+      note: "B Day: due by the end of class.",
+      a: "2026-11-16", b: "2026-11-17", added: "2026-11-14" },
+    { type: "event", title: "Unit 4 begins",
+      note: "Starts with the Transatlantic Slave Trade and Point Comfort.",
+      a: "2026-11-18", b: "2026-11-19", added: "2026-11-14" },
+    { type: "no-school", title: "Thanksgiving break",
+      note: "No school Wednesday 11/25 through Friday 11/27.",
+      date: "2026-11-25", added: "2026-11-14" },
+    { type: "minor", title: "Vocab & Map",
+      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+    { type: "formative", title: "Mystery Colony practice",
+      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+    { type: "summative", title: "Mystery Colony",
+      note: "The Unit 4 end-of-unit major.",
+      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+    { type: "minor", title: "Sketchbook due",
+      note: "Sketchbooks are always due the day of the unit's major summative.",
+      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+    { type: "summative", title: "Socratic Seminar",
+      a: "2026-12-15", b: "2026-12-16", added: "2026-11-14" },
+    { type: "no-school", title: "Winter break",
+      note: "No school Monday 12/21 through Friday 1/1.",
+      date: "2026-12-21", added: "2026-11-14" }
   ],
 
   // Weekly posts, newest first: one strong photo and two or three sentences.
@@ -78,11 +103,17 @@ window.CLASS = {
   posts: [
     {
       week: "2026-11-09",
-      added: "2026-11-11",
-      title: "Unit 3 wraps up",
-      text: "Model & Practice this week is both the formative assessment and the practice round for the summative. The Unit 3 summative and reflection are coming up fast (your student's dates are under Coming up), and then we start Unit 4.",
-      ask: "How should we remember the Age of Exploration? Whose perspectives should we keep in mind?",
-      listenFor: "A claim backed by evidence, not just an opinion. Can they name a specific explorer and say whether they lean \"explorer\" or \"exploiter,\" and why?"
+      added: "2026-11-14",
+      title: "Explorer or exploiter?",
+      text: "Students worked through evidence files, each on a single explorer, placed that explorer on a scale from explorer to exploiter, and backed up the claim with evidence from the file. Also pictured: the sketchbook checklist, and a name card from a student who knows I'm always asking whether anyone has freshly baked cookies. Thankfully, a few students regularly deliver.",
+      photos: [
+        { src: "photos/evidence-file-coronado.jpg", caption: "An evidence file on Coronado and the Zuni, with the explorer-to-exploiter scale" },
+        { src: "photos/working-together.jpg",      caption: "Working through an evidence file together" },
+        { src: "photos/sketchbook-checklist.jpg",  caption: "The sketchbook checklist: pages 9 to 16, plus all taped-in items" },
+        { src: "photos/cookie-name-card.jpg",      caption: "A gift from a student. Still accepting cookies." }
+      ],
+      ask: "Who was your explorer for the summative, and did you decide they were more of an explorer or more of an exploiter?",
+      listenFor: "Specific evidence from the file, not just \"because he was mean.\" Bonus if they can explain why someone might argue the other side."
     },
     {
       week: "2026-11-02",
@@ -96,6 +127,27 @@ window.CLASS = {
         { src: "photos/title-cards.jpg",   caption: "This week's thinking wall" }
       ]
     }
+  ],
+
+  // The eight thinking moves (Project Zero, Making Thinking Visible), in the
+  // wording and colors of the classroom posters. Rarely changes.
+  thinkingMoves: [
+    { name: "Observing Closely & Describing What's There", icon: "target",  color: "#cf5c99",
+      questions: ["What do you see and notice?", "How would you describe it to someone who can't see it?"] },
+    { name: "Wondering & Asking Questions",                icon: "question", color: "#dc5d66",
+      questions: ["What are you curious about or confused by?", "What question needs answering for you to truly understand this?"] },
+    { name: "Making Connections",                          icon: "link",     color: "#da643a",
+      questions: ["How does this fit with what you already know?", "What does it remind you of or make you think about?"] },
+    { name: "Considering Different Viewpoints",            icon: "venn",     color: "#c77d04",
+      questions: ["What's another angle on this?", "How, and why, might someone else see this differently?"] },
+    { name: "Building Explanations & Interpretations",     icon: "blocks",   color: "#289e62",
+      questions: ["What's really going on here?", "Does your explanation fit everything we know?"] },
+    { name: "Reasoning with Evidence",                     icon: "pillars",  color: "#039ba5",
+      questions: ["What makes you say that?", "How does that support your claim?"] },
+    { name: "Uncovering Complexity & Going Deeply",        icon: "depth",    color: "#3178db",
+      questions: ["What lies beneath the surface?", "What's missing from the simple version?"] },
+    { name: "Capturing the Heart & Forming Conclusions",   icon: "diamond",  color: "#5d4dbf",
+      questions: ["What is at the core or center of this?", "Can you describe your understanding of this in one sentence?"] }
   ],
 
   // Standing information. Always on the page, so it doesn't need repeating each week.

@@ -582,7 +582,10 @@ details[open] > summary::after { content: "\2212"; }
     const when = new Date(Math.min(...next.upcoming.map(Number)));
     $("next-when").textContent = relative(when);
     let what = next.it.title;
-    if (choice === "both" && !next.d.same) what += " · A Day " + md(next.d.a) + ", B Day " + md(next.d.b);
+    if (choice === "both" && !next.d.same) {
+      const parts = [["A Day", next.d.a], ["B Day", next.d.b]].filter(([, x]) => diff(x) >= 0).map(([l, x]) => l + " " + md(x));
+      what += " · " + parts.join(", ");
+    }
     else if (diff(when) > 1) what += " · " + fmt(when, { weekday: "long", month: "short", day: "numeric" });
     $("next-what").textContent = what;
   }

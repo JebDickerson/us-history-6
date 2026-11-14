@@ -610,7 +610,7 @@ details[open] > summary::after { content: "\2212"; }
   render();
 
   // ---- Posts ----
-  const SHOW_IN_FULL = 2; // newest weeks shown open; older ones fold into "Earlier weeks"
+  const SHOW_IN_FULL = 1; // newest weeks shown open; older ones fold into "Earlier weeks"
   const monday = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
   const weekLabel = (wk) => +wk === +monday ? "This week" : "Week of " + md(wk);
 

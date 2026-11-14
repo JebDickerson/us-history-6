@@ -118,7 +118,7 @@ window.CLASS = {
 
   // Weekly posts, newest first: one strong photo and two or three sentences.
   // The first photo is shown large; any others go in a row underneath.
-  // The two newest weeks show in full; older weeks fold into "Earlier weeks."
+  // The newest week shows in full; older weeks fold into "Earlier weeks."
   posts: [
     {
       week: "2026-11-09",

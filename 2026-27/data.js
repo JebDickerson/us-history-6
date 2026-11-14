@@ -36,18 +36,37 @@ window.CLASS = {
 
   // The unit we're in now.
   unit: {
-    number: 3,
-    name: "European Exploration",
-    // First day of the unit. "Past dates" only shows dates from this unit.
-    // Leave it null to show every past date.
-    starts: null,
-    ends: "2026-11-17",
-    bigQuestion: "How should we remember the Age of Exploration?",
-    terms: ["Motivation", "Obstacle", "Gold, God, and Glory", "Indigenous", "Interaction",
-            "Accomplishments", "Columbian Exchange", "Northwest Passage", "Explorer vs. exploiter"],
+    number: 4,
+    name: "Colonial America",
+    // First day of the unit (A Day). "Past dates" only shows dates from this unit.
+    starts: "2026-11-18",
+    ends: "2026-12-18",
+    bigQuestion: "How did different people experience life in Colonial America?",
+    // Terms can be plain words, or { term, def } to show a definition on tap.
+    terms: [
+      { term: "Colonize", def: "When a country sends a group of settlers to a place and establishes political control over it." },
+      { term: "Debtor", def: "A person who owes money." },
+      { term: "Interdependence", def: "Depending or relying on one another." },
+      { term: "Mayflower Compact", def: "A set of rules for self-governance written by the English settlers who traveled to the New World on the Mayflower." },
+      { term: "Persecution", def: "Mistreatment of an individual or group by another group." },
+      { term: "Abundant", def: "Existing or available in large quantities; plentiful." },
+      { term: "Scarce", def: "Rare; not enough food, money, or other resources to meet the demand." },
+      { term: "Specialization", def: "Being an expert in something. For example, tobacco was a specialization of the Southern Colonies." },
+      { term: "Pilgrim", def: "A person who journeys to a sacred place for religious reasons." },
+      { term: "Separatist", def: "A person who separates or withdraws from an established church." },
+      { term: "Protestant", def: "A follower of any of the Western Christian churches that are separate from the Roman Catholic Church." },
+      { term: "Quakers", def: "The Religious Society of Friends, a Christian movement founded by George Fox around 1650 and devoted to peaceful principles." },
+      { term: "Catholic", def: "The oldest and largest branch of Christianity. At the time, the Roman Catholic Church claimed to be the only true Christian church." },
+      { term: "Artisan", def: "A person who makes things using their skills." },
+      { term: "Indentured servant", def: "Someone who sold their labor, usually for 5 to 7 years, in exchange for the cost of the trip from Europe to the colonies. Unlike enslaved people, they were eventually freed." },
+      { term: "Merchant", def: "A person who buys and sells goods with other countries." },
+      { term: "Proprietor", def: "A person who owns something, usually land, a business, or property." },
+      { term: "Tenant", def: "A person who pays for the right to live in a residence owned by someone else." },
+      { term: "Mercantilism", def: "An economic policy in which a country increases its wealth and power by exporting (selling) more than it imports (buying)." }
+    ],
     // What the unit's major summative looks like. null hides the line.
-    summative: "Students work through an evidence file on an assigned explorer and make a claim: was this person more of an explorer or more of an exploiter? They support the claim with evidence from the file.",
-    next: "Unit 4, Colonial America, starts the week of Nov 16."
+    summative: "Mystery Colony. Working with a partner, students study an evidence file about a mystery colony and use clues about its geography, economy, and daily life to figure out which colonial region it belongs to, backing up their answer with evidence.",
+    next: "Unit 5, Revolution."
   },
 
   // The "This week" block at the top. Keep each to a sentence.

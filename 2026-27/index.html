@@ -132,6 +132,26 @@ button { font: inherit; color: inherit; }
 .week-row.todo .k { color: var(--ember); }
 .week-row p { font-size: .95rem; min-width: 0; }
 
+/* Thinking moves */
+.tm-icon { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex: none; }
+.tm-icon svg { width: 22px; height: 22px; display: block; }
+.week-row.think .k { color: var(--ink-2); }
+.think-move { display: flex; gap: 10px; align-items: flex-start; }
+.think-move .tm-icon { width: 28px; height: 28px; border-radius: 7px; }
+.think-move .tm-icon svg { width: 18px; height: 18px; }
+.think-move b { font-weight: 700; }
+.think-move .try { display: block; margin-top: 4px; font-size: .88rem; color: var(--ink-2); }
+.tm-intro { max-width: 62ch; }
+.tm-grid { display: grid; gap: 8px; }
+.tm { background: var(--panel-soft); border-radius: 14px; padding: 0 14px; box-shadow: var(--shadow); }
+.tm > summary { gap: 12px; padding: 10px 0; justify-content: flex-start; }
+.tm > summary .tm-name { flex: 1; min-width: 0; font-size: .95rem; }
+.tm .focus { font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ember); display: block; }
+.tm.is-focus { outline: 2px solid var(--ember); outline-offset: -2px; }
+.tm ul { margin: 0; padding: 0 0 14px 46px; list-style: none; display: grid; gap: 4px; font-size: .93rem; color: var(--ink-2); }
+.tm ul li::before { content: "\201C"; }
+.tm ul li::after { content: "\201D"; }
+
 /* Coming up */
 .list { background: var(--panel); border-radius: var(--radius); padding: 6px; display: grid; gap: 4px; }
 .row { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start; padding: 12px 14px; border-radius: 13px; background: var(--panel-soft); }
@@ -160,7 +180,12 @@ button { font: inherit; color: inherit; }
 .unit-card .eyebrow { color: var(--sage-ink); }
 .bigq { font-size: 1.3rem; font-weight: 700; line-height: 1.3; text-wrap: balance; }
 .terms { display: flex; flex-wrap: wrap; gap: 6px; }
-.term { background: var(--panel-soft); padding: 4px 12px; border-radius: 99px; font-size: .88rem; font-weight: 500; }
+.term { background: var(--panel-soft); padding: 4px 12px; border-radius: 99px; font-size: .88rem; font-weight: 500; border: 0; }
+button.term { cursor: pointer; }
+button.term[aria-expanded="true"] { background: var(--sage-ink); color: var(--panel-soft); }
+.term-def { background: var(--panel-soft); border-radius: 12px; padding: 10px 14px; font-size: .93rem; }
+.term-def b { font-weight: 700; }
+.terms-hint { font-size: .8rem; color: var(--sage-ink); }
 .unit-meta { display: grid; gap: 6px; font-size: .92rem; }
 .unit-meta .k { font-weight: 700; }
 
@@ -195,7 +220,7 @@ details[open] > summary::after { content: "\2212"; }
 .fold { background: transparent; box-shadow: none; padding: 0; }
 .fold > summary { padding: 10px 14px; border-radius: 12px; background: var(--panel-soft); font-size: .92rem; font-weight: 600; color: var(--ink-2); }
 .fold[open] > summary { margin-bottom: 8px; }
-.fold .row { opacity: .8; }
+#past .row { opacity: .8; }
 .fold .list { background: transparent; padding: 0; }
 .earlier { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 24px; }
 .earlier-list { display: grid; gap: 8px; }
@@ -264,15 +289,20 @@ details[open] > summary::after { content: "\2212"; }
     <div class="week-rows">
       <div class="week-row todo" id="todo-row"><span class="k">Do this</span><p id="todo"></p></div>
       <div class="week-row"><span class="k">Learning</span><p id="learning"></p></div>
+      <div class="week-row think" id="think-row" hidden><span class="k">Thinking</span><div id="thinking" class="think-move"></div></div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="coming-h">
     <div class="section-head">
       <h2 id="coming-h">Coming up</h2>
-      <p class="sub">If a date changes, it's marked here.</p>
+      <p class="sub">The week ahead. If a date changes, it's marked here.</p>
     </div>
     <div class="list" id="dates"></div>
+    <details class="fold" id="later" hidden>
+      <summary id="later-sum">Later</summary>
+      <div class="list" id="later-list"></div>
+    </details>
     <details class="fold" id="past" hidden>
       <summary id="past-sum">Past dates</summary>
       <div class="list" id="past-list"></div>
@@ -292,8 +322,18 @@ details[open] > summary::after { content: "\2212"; }
       <span class="eyebrow" id="unit-h"></span>
       <p class="bigq" id="bigq"></p>
       <div class="terms" id="terms" aria-label="Key terms"></div>
+      <p class="terms-hint" id="terms-hint" hidden>Tap a word to see what it means.</p>
+      <p class="term-def" id="term-def" hidden aria-live="polite"></p>
       <div class="unit-meta" id="unit-meta"></div>
     </div>
+  </section>
+
+  <section class="section" aria-labelledby="tm-h" id="tm-section" hidden>
+    <div class="section-head">
+      <h2 id="tm-h">How we think in this class</h2>
+    </div>
+    <p class="tm-intro sub">Everything we study is a chance to practice thinking. We use eight thinking moves from Project Zero's Making Thinking Visible research, and you'll see them on the walls of our room. Each one comes with two questions, and those questions work just as well at home. Tap a move to see them.</p>
+    <div class="tm-grid" id="tm-grid"></div>
   </section>
 
   <section class="section" aria-labelledby="faq-h">
@@ -387,17 +427,75 @@ details[open] > summary::after { content: "\2212"; }
     $("route").append(li);
   });
   const rl = $("route-label");
-  rl.append(el("strong", null, "Unit " + U.number + ": " + U.name), document.createTextNode(" · wraps up " + md(day(U.ends))));
+  rl.append(el("strong", null, "Unit " + U.number + ": " + U.name), document.createTextNode(U.starts && diff(day(U.starts)) > 0 ? " · starts " + md(day(U.starts)) : " · wraps up " + md(day(U.ends))));
   if (!C.units || !C.units.length) $("route").hidden = true;
 
   // This week
   $("learning").textContent = C.thisWeek.learning;
   if (C.thisWeek.todo) $("todo").textContent = C.thisWeek.todo; else $("todo-row").hidden = true;
 
+  // Thinking moves
+  const ICONS = {
+    target:   '<circle cx="12" cy="12" r="9.5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="#fff"/>',
+    question: '<path d="M8.2 9.2a4.3 4.3 0 1 1 5.6 4.1c-.9.3-1.8.9-1.8 1.9v.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="19.6" r="1.5" fill="#fff"/>',
+    link:     '<circle cx="16.5" cy="7.5" r="3.6" fill="#fff"/><circle cx="7.5" cy="16.5" r="3.6" fill="#fff"/><path d="M8 16 16 8" stroke="#fff" stroke-width="2"/>',
+    venn:     '<circle cx="12" cy="8.6" r="5" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="1.8"/><circle cx="8.6" cy="14.6" r="5" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="1.8"/><circle cx="15.4" cy="14.6" r="5" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="1.8"/>',
+    blocks:   '<rect x="10.5" y="3.5" width="3" height="3" fill="#fff"/><rect x="6.5" y="8" width="8.5" height="3" fill="#fff"/><rect x="8" y="12.5" width="10" height="3" fill="#fff"/><rect x="5.5" y="17" width="10.5" height="3" fill="#fff"/>',
+    pillars:  '<rect x="4" y="4.5" width="16" height="3" fill="#fff"/><rect x="6" y="9" width="2.4" height="8" fill="#fff"/><rect x="10.8" y="9" width="2.4" height="8" fill="#fff"/><rect x="15.6" y="9" width="2.4" height="8" fill="#fff"/><rect x="3" y="18.5" width="18" height="2" fill="#fff"/>',
+    depth:    '<circle cx="12" cy="4.5" r="2.2" fill="#fff"/><rect x="3" y="8" width="18" height="1.8" rx=".9" fill="#fff"/><rect x="5.5" y="11.3" width="13" height="1.6" rx=".8" fill="rgba(255,255,255,.85)"/><rect x="7.5" y="14.3" width="9" height="1.5" rx=".75" fill="rgba(255,255,255,.7)"/><rect x="9.5" y="17" width="5" height="1.4" rx=".7" fill="rgba(255,255,255,.55)"/><circle cx="12" cy="20.6" r="1.3" fill="#fff"/>',
+    diamond:  '<path d="M12 2 22 12 12 22 2 12Z" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M12 6 18 12 12 18 6 12Z" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="2.2" fill="#fff"/>'
+  };
+  const tmIcon = (m) => { const d = el("span", "tm-icon"); d.style.background = m.color; d.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[m.icon] || "") + "</svg>"; return d; };
+  const moves = C.thinkingMoves || [];
+  const focus = moves.find((m) => m.name === C.thisWeek.thinking);
+  if (focus) {
+    const box = $("thinking");
+    const txt = el("div");
+    txt.append(el("b", null, focus.name + ". "), document.createTextNode(C.thisWeek.thinkingNote || ""));
+    txt.append(el("span", "try", "Try asking: \u201C" + focus.questions[0] + "\u201D"));
+    box.append(tmIcon(focus), txt);
+    $("think-row").hidden = false;
+  }
+  if (moves.length) {
+    moves.forEach((m, i) => {
+      const d = el("details", "tm" + (m === focus ? " is-focus" : ""));
+      d.id = "move-" + i;
+      const sum = el("summary");
+      const name = el("span", "tm-name");
+      if (m === focus) name.append(el("span", "focus", "Our focus right now"));
+      name.append(document.createTextNode(m.name));
+      sum.append(tmIcon(m), name);
+      const ul = el("ul");
+      m.questions.forEach((q) => ul.append(el("li", null, q)));
+      d.append(sum, ul);
+      $("tm-grid").append(d);
+    });
+    $("tm-section").hidden = false;
+  }
+
   // Unit card
   $("unit-h").textContent = "Unit " + U.number + " at a glance";
   $("bigq").textContent = U.bigQuestion || "";
-  (U.terms || []).forEach((t) => $("terms").append(el("span", "term", t)));
+  // Terms are plain strings, or { term, def } to show a definition on tap.
+  const termBtns = [];
+  (U.terms || []).forEach((t) => {
+    if (typeof t === "string") { $("terms").append(el("span", "term", t)); return; }
+    const b = el("button", "term", t.term);
+    b.type = "button";
+    b.setAttribute("aria-expanded", "false");
+    b.addEventListener("click", () => {
+      const open = b.getAttribute("aria-expanded") === "true";
+      termBtns.forEach((x) => x.setAttribute("aria-expanded", "false"));
+      const box = $("term-def");
+      if (open) { box.hidden = true; return; }
+      b.setAttribute("aria-expanded", "true");
+      box.replaceChildren(el("b", null, t.term + ": "), document.createTextNode(t.def));
+      box.hidden = false;
+    });
+    termBtns.push(b);
+    $("terms").append(b);
+  });
+  if (termBtns.length) $("terms-hint").hidden = false;
   if (U.summative) { const p = el("p"); p.append(el("span", "k", "The summative: "), document.createTextNode(U.summative)); $("unit-meta").append(p); }
   if (U.next) { const p = el("p"); p.append(el("span", "k", "Next: "), document.createTextNode(U.next)); $("unit-meta").append(p); }
 
@@ -468,10 +566,18 @@ details[open] > summary::after { content: "\2212"; }
     const unitStart = U.starts ? day(U.starts) : null;
     const past = all.filter((x) => !x.upcoming.length && (!unitStart || x.last >= +unitStart)).sort((x, y) => y.last - x.last);
 
+    // Coming up shows the week ahead; anything later folds into "Later".
+    const WINDOW_DAYS = 7;
+    let soon = items.filter((x) => diff(new Date(x.sortKey)) <= WINDOW_DAYS);
+    if (!soon.length && items.length) soon = items.slice(0, 1);
+    const later = items.filter((x) => !soon.includes(x));
     const list = $("dates");
     list.replaceChildren();
     if (!items.length) list.append(el("p", "empty", "Nothing scheduled right now."));
-    items.forEach((x) => list.append(buildRow(x)));
+    soon.forEach((x) => list.append(buildRow(x)));
+    $("later-list").replaceChildren(...later.map(buildRow));
+    $("later-sum").textContent = "Later (" + later.length + ")";
+    $("later").hidden = !later.length;
 
     $("past-list").replaceChildren(...past.map(buildRow));
     $("past-sum").textContent = (unitStart ? "Past dates this unit" : "Past dates") + " (" + past.length + ")";
@@ -488,7 +594,10 @@ details[open] > summary::after { content: "\2212"; }
     const when = new Date(Math.min(...next.upcoming.map(Number)));
     $("next-when").textContent = relative(when);
     let what = next.it.title;
-    if (choice === "both" && !next.d.same) what += " · A Day " + md(next.d.a) + ", B Day " + md(next.d.b);
+    if (choice === "both" && !next.d.same) {
+      const parts = [["A Day", next.d.a], ["B Day", next.d.b]].filter(([, x]) => diff(x) >= 0).map(([l, x]) => l + " " + md(x));
+      what += " · " + parts.join(", ");
+    }
     else if (diff(when) > 1) what += " · " + fmt(when, { weekday: "long", month: "short", day: "numeric" });
     $("next-what").textContent = what;
   }
@@ -501,7 +610,7 @@ details[open] > summary::after { content: "\2212"; }
   render();
 
   // ---- Posts ----
-  const SHOW_IN_FULL = 2; // newest weeks shown open; older ones fold into "Earlier weeks"
+  const SHOW_IN_FULL = 1; // newest weeks shown open; older ones fold into "Earlier weeks"
   const monday = (() => { const d = new Date(TODAY); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; })();
   const weekLabel = (wk) => +wk === +monday ? "This week" : "Week of " + md(wk);
 

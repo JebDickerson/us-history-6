@@ -12,11 +12,16 @@ Ask one question at a time, conversationally. Short answers, voice-to-text, and 
 week" or "skip" are all fine. Show the relevant current content from `data.js` when it helps
 (e.g. list the upcoming dates before asking about changes).
 
-1. **Dates.** Here's what's on the calendar now: [list upcoming dates]. Anything new in the next
-   two weeks (assessments, projects, homework, days off)? Does any of it differ by A Day / B Day?
+1. **Dates.** Here's what's on the calendar now: [list upcoming dates]. Anything new (assessments,
+   projects, homework, days off)? Does any of it differ by A Day / B Day? He may send a picture of
+   his planning calendar: when a lesson spans two days, the first is A Day and the second B Day.
+   Add every known assessment and day off, even weeks out. The page only shows the next 7 days
+   under Coming up and folds the rest into "Later", so long lists are fine.
 2. **Changes.** Did any of those dates move or get cancelled?
 3. **Do this.** Is there one thing families should do this week? (Fine to say nothing.)
 4. **Learning.** In a sentence, what are students learning right now?
+   **Thinking.** Which of the eight thinking moves are we leaning on? (Use the exact name from
+   `thinkingMoves` in `data.js`.) Write a one-line `thinkingNote` tying it to this week's work.
 5. **The moment.** What was the best moment in class this week? Upload 1 to 4 photos if you have
    them (only students without opt-outs, no recognizable faces). Which one should lead?
 6. **Dinner question.** What should families ask their student this week? And what does a good
@@ -39,11 +44,16 @@ week" or "skip" are all fine. Show the relevant current content from `data.js` w
   `2026-27/photos/` with a short descriptive filename. First photo in the list is the large one.
 - Every unit: the reflection is a minor summative (`type: "minor"`), and a "Sketchbook due"
   entry (`type: "minor"`) goes on the same A/B dates as the unit's major summative.
-- New post goes at the top of `posts`. Leave older posts in place; the page folds them.
+- New post goes at the top of `posts`. Leave older posts in place; only the newest shows in
+  full and the rest fold into "Earlier weeks".
 - Unit change: update `unit` (number, name, starts, ends, bigQuestion, terms, summative, next)
-  and fill in that unit's name in `units`.
-- Before pushing, show a short summary of what's changing and get a yes.
-- Commit to `main` with a message like "Week of Nov 16 update" and push.
+  and fill in that unit's name in `units`. Terms can be `{ term, def }` to show a definition on
+  tap; if he sends colleagues' vocab slides, use their definitions and flag any you change.
+- Work on a branch named like `update-nov-16`, never directly on `main`. `main` is the live site.
+- Before publishing, show a short summary of what's changing and a clickable preview: publish a
+  private Artifact of the draft (strip the doctype/html/head/body wrapper, title it "Class Page
+  Draft", include `data.js` and the photos). He isn't a GitHub user; all review happens in chat.
+- When he says "publish" or "yes", merge the branch into `main`, push, and delete the branch.
 
 ## After pushing
 

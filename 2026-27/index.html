@@ -220,7 +220,7 @@ details[open] > summary::after { content: "\2212"; }
 .fold { background: transparent; box-shadow: none; padding: 0; }
 .fold > summary { padding: 10px 14px; border-radius: 12px; background: var(--panel-soft); font-size: .92rem; font-weight: 600; color: var(--ink-2); }
 .fold[open] > summary { margin-bottom: 8px; }
-.fold .row { opacity: .8; }
+#past .row { opacity: .8; }
 .fold .list { background: transparent; padding: 0; }
 .earlier { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 24px; }
 .earlier-list { display: grid; gap: 8px; }
@@ -296,9 +296,13 @@ details[open] > summary::after { content: "\2212"; }
   <section class="section" aria-labelledby="coming-h">
     <div class="section-head">
       <h2 id="coming-h">Coming up</h2>
-      <p class="sub">If a date changes, it's marked here.</p>
+      <p class="sub">The week ahead. If a date changes, it's marked here.</p>
     </div>
     <div class="list" id="dates"></div>
+    <details class="fold" id="later" hidden>
+      <summary id="later-sum">Later</summary>
+      <div class="list" id="later-list"></div>
+    </details>
     <details class="fold" id="past" hidden>
       <summary id="past-sum">Past dates</summary>
       <div class="list" id="past-list"></div>
@@ -562,10 +566,18 @@ details[open] > summary::after { content: "\2212"; }
     const unitStart = U.starts ? day(U.starts) : null;
     const past = all.filter((x) => !x.upcoming.length && (!unitStart || x.last >= +unitStart)).sort((x, y) => y.last - x.last);
 
+    // Coming up shows the week ahead; anything later folds into "Later".
+    const WINDOW_DAYS = 7;
+    let soon = items.filter((x) => diff(new Date(x.sortKey)) <= WINDOW_DAYS);
+    if (!soon.length && items.length) soon = items.slice(0, 1);
+    const later = items.filter((x) => !soon.includes(x));
     const list = $("dates");
     list.replaceChildren();
     if (!items.length) list.append(el("p", "empty", "Nothing scheduled right now."));
-    items.forEach((x) => list.append(buildRow(x)));
+    soon.forEach((x) => list.append(buildRow(x)));
+    $("later-list").replaceChildren(...later.map(buildRow));
+    $("later-sum").textContent = "Later (" + later.length + ")";
+    $("later").hidden = !later.length;
 
     $("past-list").replaceChildren(...past.map(buildRow));
     $("past-sum").textContent = (unitStart ? "Past dates this unit" : "Past dates") + " (" + past.length + ")";

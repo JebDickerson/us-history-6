@@ -180,7 +180,12 @@ button { font: inherit; color: inherit; }
 .unit-card .eyebrow { color: var(--sage-ink); }
 .bigq { font-size: 1.3rem; font-weight: 700; line-height: 1.3; text-wrap: balance; }
 .terms { display: flex; flex-wrap: wrap; gap: 6px; }
-.term { background: var(--panel-soft); padding: 4px 12px; border-radius: 99px; font-size: .88rem; font-weight: 500; }
+.term { background: var(--panel-soft); padding: 4px 12px; border-radius: 99px; font-size: .88rem; font-weight: 500; border: 0; }
+button.term { cursor: pointer; }
+button.term[aria-expanded="true"] { background: var(--sage-ink); color: var(--panel-soft); }
+.term-def { background: var(--panel-soft); border-radius: 12px; padding: 10px 14px; font-size: .93rem; }
+.term-def b { font-weight: 700; }
+.terms-hint { font-size: .8rem; color: var(--sage-ink); }
 .unit-meta { display: grid; gap: 6px; font-size: .92rem; }
 .unit-meta .k { font-weight: 700; }
 
@@ -313,6 +318,8 @@ details[open] > summary::after { content: "\2212"; }
       <span class="eyebrow" id="unit-h"></span>
       <p class="bigq" id="bigq"></p>
       <div class="terms" id="terms" aria-label="Key terms"></div>
+      <p class="terms-hint" id="terms-hint" hidden>Tap a word to see what it means.</p>
+      <p class="term-def" id="term-def" hidden aria-live="polite"></p>
       <div class="unit-meta" id="unit-meta"></div>
     </div>
   </section>
@@ -416,7 +423,7 @@ details[open] > summary::after { content: "\2212"; }
     $("route").append(li);
   });
   const rl = $("route-label");
-  rl.append(el("strong", null, "Unit " + U.number + ": " + U.name), document.createTextNode(" · wraps up " + md(day(U.ends))));
+  rl.append(el("strong", null, "Unit " + U.number + ": " + U.name), document.createTextNode(U.starts && diff(day(U.starts)) > 0 ? " · starts " + md(day(U.starts)) : " · wraps up " + md(day(U.ends))));
   if (!C.units || !C.units.length) $("route").hidden = true;
 
   // This week
@@ -465,7 +472,26 @@ details[open] > summary::after { content: "\2212"; }
   // Unit card
   $("unit-h").textContent = "Unit " + U.number + " at a glance";
   $("bigq").textContent = U.bigQuestion || "";
-  (U.terms || []).forEach((t) => $("terms").append(el("span", "term", t)));
+  // Terms are plain strings, or { term, def } to show a definition on tap.
+  const termBtns = [];
+  (U.terms || []).forEach((t) => {
+    if (typeof t === "string") { $("terms").append(el("span", "term", t)); return; }
+    const b = el("button", "term", t.term);
+    b.type = "button";
+    b.setAttribute("aria-expanded", "false");
+    b.addEventListener("click", () => {
+      const open = b.getAttribute("aria-expanded") === "true";
+      termBtns.forEach((x) => x.setAttribute("aria-expanded", "false"));
+      const box = $("term-def");
+      if (open) { box.hidden = true; return; }
+      b.setAttribute("aria-expanded", "true");
+      box.replaceChildren(el("b", null, t.term + ": "), document.createTextNode(t.def));
+      box.hidden = false;
+    });
+    termBtns.push(b);
+    $("terms").append(b);
+  });
+  if (termBtns.length) $("terms-hint").hidden = false;
   if (U.summative) { const p = el("p"); p.append(el("span", "k", "The summative: "), document.createTextNode(U.summative)); $("unit-meta").append(p); }
   if (U.next) { const p = el("p"); p.append(el("span", "k", "Next: "), document.createTextNode(U.next)); $("unit-meta").append(p); }
 

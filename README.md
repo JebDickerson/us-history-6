@@ -37,3 +37,8 @@ To edit by hand, open `2026-27/data.js` and edit the lists:
 
 Settings → Pages → Build and deployment → Source: "Deploy from a branch", Branch: `main`, folder `/ (root)`.
 The site is then at https://jebdickerson.github.io/us-history-6/
+
+## Visits
+
+The class page counts visits with GoatCounter (no cookies, no personal data).
+See the numbers at https://dickerson-history.goatcounter.com

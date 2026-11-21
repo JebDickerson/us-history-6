@@ -129,7 +129,9 @@ window.CLASS = {
         { src: "photos/whiteboard-turkey-week.jpg", caption: "The week on the board, plus Mila's drawing of Mr. D and Turk" },
         { src: "photos/pep-rally-livestream.jpg",   caption: "Watching the pep rally livestream" },
         { src: "photos/three-friends.jpg",          caption: "Fine feathered friends" }
-      ]
+      ],
+      ask: "How did Jamestown finally succeed as a colony? Who benefited from that success, and who didn't?",
+      listenFor: "Tobacco as the crop that finally made Jamestown profitable. Then more than one side of it: tobacco planters and England gained, while the Powhatan people lost their land, indentured servants did years of hard labor, and enslaved Africans did the work without any of the benefits."
     },
     {
       week: "2026-11-09",

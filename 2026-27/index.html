@@ -126,11 +126,17 @@ button { font: inherit; color: inherit; }
 
 /* This week */
 .week-box { background: var(--panel-soft); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.week-head { padding: 18px 20px 12px; }
+.week-rows .week-row:first-child { border-top-color: var(--line); }
+.assess { display: grid; gap: 6px; font-size: .95rem; min-width: 0; }
+.assess .as-line b { color: var(--ember); font-weight: 700; }
+.assess .as-none { font-weight: 600; }
+.assess .as-next { color: var(--ink-2); font-size: .9rem; }
 .week-next { padding: 18px 20px 16px; display: grid; gap: 4px; }
 .week-next .when { font-size: 2.1rem; font-weight: 800; color: var(--ember); letter-spacing: -.02em; line-height: 1.05; }
 .week-next .what { font-size: 1.05rem; font-weight: 600; }
 .week-rows { display: grid; }
-.week-row { display: grid; grid-template-columns: 74px 1fr; gap: 12px; padding: 12px 20px; border-top: 1px solid var(--line); }
+.week-row { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 12px 20px; border-top: 1px solid var(--line); }
 .week-row.todo { background: var(--ember-soft); border-top-color: transparent; }
 .week-row .k { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); padding-top: 3px; }
 .week-row.todo .k { color: var(--ember); }
@@ -257,7 +263,7 @@ details[open] > summary::after { content: "\2212"; }
   .wrap { padding-block: 32px 64px; gap: 38px; }
   .top { padding: 30px; }
   .row { grid-template-columns: 110px 1fr; }
-  .week-row { grid-template-columns: 90px 1fr; }
+  .week-row { grid-template-columns: 110px 1fr; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .hero img { transition: none; } }
 </style>
@@ -285,15 +291,12 @@ details[open] > summary::after { content: "\2212"; }
   </header>
 
   <section class="week-box" aria-labelledby="week-h">
-    <div class="week-next" id="next">
-      <span class="eyebrow" id="week-h">This week</span>
-      <span class="when" id="next-when"></span>
-      <span class="what" id="next-what"></span>
-    </div>
+    <div class="week-head"><h2 id="week-h">This week</h2></div>
     <div class="week-rows">
-      <div class="week-row todo" id="todo-row"><span class="k">Do this</span><p id="todo"></p></div>
       <div class="week-row"><span class="k">Learning</span><p id="learning"></p></div>
       <div class="week-row think" id="think-row" hidden><span class="k">Thinking</span><div id="thinking" class="think-move"></div></div>
+      <div class="week-row"><span class="k">Assessments</span><div id="assess" class="assess"></div></div>
+      <div class="week-row todo" id="todo-row"><span class="k">Do this</span><p id="todo"></p></div>
     </div>
   </section>
 
@@ -587,27 +590,35 @@ details[open] > summary::after { content: "\2212"; }
     $("past-sum").textContent = (unitStart ? "Past dates this unit" : "Past dates") + " (" + past.length + ")";
     $("past").hidden = !past.length;
 
-    // This week: the next date that isn't a day off.
-    const next = items.find((x) => x.it.type !== "no-school") || items[0];
-    $("week-h").textContent = choice === "both" ? "Next up" : "Next up for your student";
-    if (!next) {
-      $("next-when").textContent = "Nothing due";
-      $("next-what").textContent = "No assessments or deadlines on the calendar right now.";
-      return;
+    // This week: assessments in the next 7 days for this family's day.
+    const GRADED = ["formative", "minor", "summative", "project", "homework"];
+    const graded = items.filter((x) => GRADED.includes(x.it.type));
+    const box = $("assess");
+    box.replaceChildren();
+    const whenText = (x) => {
+      if (choice === "both" && !x.d.same) {
+        return " · " + [["A Day", x.d.a], ["B Day", x.d.b]].filter(([, d]) => diff(d) >= 0).map(([l, d]) => l + " " + dow(d) + " " + nd(d)).join(", ");
+      }
+      const w = new Date(x.sortKey);
+      return diff(w) > 1 ? " · " + fmt(w, { weekday: "long", month: "short", day: "numeric" }) : "";
+    };
+    const soonGraded = graded.filter((x) => diff(new Date(x.sortKey)) <= 7);
+    if (soonGraded.length) {
+      soonGraded.forEach((x) => {
+        const line = el("p", "as-line");
+        const w = new Date(x.sortKey);
+        const rel = diff(w) <= 1 ? relative(w) : null;
+        if (rel) line.append(el("b", null, rel + ": "));
+        line.append(document.createTextNode(x.it.title + " · " + (typeLabel[x.it.type] || x.it.type).toLowerCase() + whenText(x)));
+        box.append(line);
+      });
+    } else if (graded.length) {
+      box.append(el("p", "as-none", "No assessments this week."));
+      const n = graded[0];
+      box.append(el("p", "as-next", "Next one: " + n.it.title + (choice === "both" && !n.d.same ? whenText(n) : " · " + fmt(new Date(n.sortKey), { weekday: "long", month: "short", day: "numeric" }))));
+    } else {
+      box.append(el("p", "as-none", "No assessments on the calendar right now."));
     }
-    const when = new Date(Math.min(...next.upcoming.map(Number)));
-    // More than a week out: say so plainly instead of headlining a far-off date.
-    const far = diff(when) > 7;
-    $("next-when").classList.toggle("quiet", far);
-    if (far) $("week-h").textContent = "This week";
-    $("next-when").textContent = far ? "No assessments this week" : relative(when);
-    let what = (far ? "Next one: " : "") + next.it.title;
-    if (choice === "both" && !next.d.same) {
-      const parts = [["A Day", next.d.a], ["B Day", next.d.b]].filter(([, x]) => diff(x) >= 0).map(([l, x]) => l + " " + md(x));
-      what += " · " + parts.join(", ");
-    }
-    else if (diff(when) > 1) what += " · " + fmt(when, { weekday: "long", month: "short", day: "numeric" });
-    $("next-what").textContent = what;
   }
 
   document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {

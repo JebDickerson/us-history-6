@@ -87,7 +87,6 @@ button { font: inherit; color: inherit; }
 .subtitle { font-size: 1.05rem; font-weight: 600; color: var(--sage-ink); }
 .stamp { color: var(--ink-2); font-size: .88rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
 .stamp .whatsnew { color: var(--ember); font-weight: 600; }
-.today-ab { background: var(--sage); color: var(--sage-ink); font-weight: 600; padding: 2px 10px; border-radius: 99px; }
 .week-next .when.quiet { font-size: 1.5rem; color: var(--ink); }
 
 /* The year as a route */
@@ -115,7 +114,13 @@ button { font: inherit; color: inherit; }
 .route-label { font-size: .88rem; }
 .route-label strong { font-weight: 700; }
 
-.daypick { display: grid; gap: 8px; }
+.daypick { display: grid; gap: 8px; align-content: start; }
+.dayrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 12px; }
+.todaybox { justify-items: center; text-align: center; margin-left: auto; }
+@media (max-width: 420px) { .seg button { padding: 7px 11px; } .today-chip { padding: 7px 14px; } }
+.today-chip { padding: 7px 18px; border-radius: 99px; font-size: .88rem; font-weight: 700; background: var(--sage-ink); color: var(--panel-soft); white-space: nowrap; }
+.today-chip.off { background: transparent; color: var(--ink-2); font-weight: 600; }
+.today-note { font-size: .8rem; color: var(--ink-2); }
 .daypick-label { font-size: .85rem; font-weight: 600; }
 .seg { display: flex; background: var(--chip-bg); border-radius: 99px; padding: 4px; gap: 2px; width: fit-content; max-width: 100%; }
 .seg button {
@@ -275,18 +280,25 @@ details[open] > summary::after { content: "\2212"; }
     <div style="display:grid;gap:6px">
       <h1>Mr. Dickerson's U.S. History Class</h1>
       <p class="subtitle">WMMS &ndash; 6th Grade</p>
-      <p class="stamp"><span class="today-ab" id="today-ab" hidden></span><span id="updated"></span><span class="whatsnew" id="whatsnew" hidden></span></p>
+      <p class="stamp"><span id="updated"></span><span class="whatsnew" id="whatsnew" hidden></span></p>
     </div>
     <div class="route-wrap">
       <ol class="route" id="route" aria-label="Units this year"></ol>
       <p class="route-label" id="route-label"></p>
     </div>
-    <div class="daypick">
-      <span class="daypick-label" id="daypick-label">My student has class on</span>
-      <div class="seg" role="group" aria-labelledby="daypick-label">
-        <button type="button" id="day-a" data-day="a">A Day</button>
-        <button type="button" id="day-b" data-day="b">B Day</button>
-        <button type="button" id="day-both" data-day="both">Not sure</button>
+    <div class="dayrow">
+      <div class="daypick">
+        <span class="daypick-label" id="daypick-label">My student has class on</span>
+        <div class="seg" role="group" aria-labelledby="daypick-label">
+          <button type="button" id="day-a" data-day="a">A Day</button>
+          <button type="button" id="day-b" data-day="b">B Day</button>
+          <button type="button" id="day-both" data-day="both">Not sure</button>
+        </div>
+      </div>
+      <div class="daypick todaybox" id="todaybox" hidden>
+        <span class="daypick-label">Today is</span>
+        <div class="seg"><span class="today-chip" id="today-chip"></span></div>
+        <span class="today-note" id="today-note" hidden></span>
       </div>
     </div>
   </header>
@@ -633,19 +645,19 @@ details[open] > summary::after { content: "\2212"; }
   fetch("school-days.json").then((r) => r.json()).then((cal) => {
     const days = cal.days || {};
     const ab = (l) => (l === "A" || l === "C") ? "A" : (l === "B" || l === "D") ? "B" : null;
-    const art = (x) => x === "A" ? "an A Day" : "a B Day";
-    const pill = $("today-ab");
-    const t = ab(days[todayIso]);
+    const chip = $("today-chip"), note = $("today-note");
+    const L = days[todayIso];
+    const t = ab(L);
     if (t) {
-      const L = days[todayIso];
-      pill.textContent = "Today is " + art(t) + (L !== t ? " (" + L + " day order)" : "");
+      chip.textContent = t + " Day";
+      if (L !== t) { note.textContent = L + " day order"; note.hidden = false; }
     } else {
+      chip.textContent = "No school";
+      chip.classList.add("off");
       const nextKey = Object.keys(days).sort().find((k) => k > todayIso && ab(days[k]));
-      if (!nextKey) return;
-      const nd8 = day(nextKey);
-      pill.textContent = "No school today · " + fmt(nd8, { weekday: "short", month: "short", day: "numeric" }) + " is " + art(ab(days[nextKey]));
+      if (nextKey) { const nk = day(nextKey); note.textContent = dow(nk) + " " + nd(nk) + ": " + ab(days[nextKey]) + " Day"; note.hidden = false; }
     }
-    pill.hidden = false;
+    $("todaybox").hidden = false;
   }).catch(() => {});
 
   // ---- Posts ----

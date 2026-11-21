@@ -23,7 +23,8 @@ week" or "skip" are all fine. Show the relevant current content from `data.js` w
    **Thinking.** Which of the eight thinking moves are we leaning on? (Use the exact name from
    `thinkingMoves` in `data.js`.) Write a one-line `thinkingNote` tying it to this week's work.
 5. **The moment.** What was the best moment in class this week? Upload 1 to 4 photos if you have
-   them (only students without opt-outs, no recognizable faces). Which one should lead?
+   them. Which one should lead? Flag any recognizable faces, names on papers or sketchbooks, and
+   offer a crop. Faces are fine once he confirms none of those students have opt-outs.
 6. **Dinner question.** What should families ask their student this week? And what does a good
    answer include, so a parent knows what to listen for?
 7. **Unit check** (only ask if a unit is starting or ending): new unit's name, its big question,

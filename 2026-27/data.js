@@ -121,6 +121,17 @@ window.CLASS = {
   // The newest week shows in full; older weeks fold into "Earlier weeks."
   posts: [
     {
+      week: "2026-11-16",
+      added: "2026-11-21",
+      title: "Hello, my fine feathered friends",
+      text: "Unit 4 is underway, and the turkey has already taken over the board. Friday's blocks ran a little short for the pep rally, so we watched the livestream together. Also on the board: Mila's drawing of me and my dog, Turk, who apparently says \"RAAAR!\"",
+      photos: [
+        { src: "photos/whiteboard-turkey-week.jpg", caption: "The week on the board, plus Mila's drawing of Mr. D and Turk" },
+        { src: "photos/pep-rally-livestream.jpg",   caption: "Watching the pep rally livestream" },
+        { src: "photos/three-friends.jpg",          caption: "Fine feathered friends" }
+      ]
+    },
+    {
       week: "2026-11-09",
       added: "2026-11-14",
       title: "Explorer or exploiter?",

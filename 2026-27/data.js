@@ -71,10 +71,10 @@ window.CLASS = {
 
   // The "This week" block at the top. Keep each to a sentence.
   thisWeek: {
-    learning: "We're closing out Unit 3 and starting Unit 4, Colonial America, beginning with the Transatlantic Slave Trade and Point Comfort, then Roanoke and Jamestown.",
+    learning: "We're digging into the first English colonies: Roanoke and Jamestown, then the New England Colonies.",
     // The thinking move we're leaning on right now. Must match a name in thinkingMoves below.
-    thinking: "Reasoning with Evidence",
-    thinkingNote: "Making a claim and backing it up with what the sources actually say, like students did with their explorer evidence files.",
+    thinking: "Capturing the Heart & Forming Conclusions",
+    thinkingNote: "Boiling a lesson down to what matters most: choosing the sentence, phrase, and word that capture a reading, and writing a headline for what happened at Roanoke and Jamestown.",
     // One thing families can do. null if there's nothing this week.
     todo: "Two Unit 4 dates swapped: the Socratic Seminar is now first and Mystery Colony is second. Check \"Later\" under Coming up for your student's new dates."
   },

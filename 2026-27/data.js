@@ -76,7 +76,7 @@ window.CLASS = {
     thinking: "Reasoning with Evidence",
     thinkingNote: "Making a claim and backing it up with what the sources actually say, like students did with their explorer evidence files.",
     // One thing families can do. null if there's nothing this week.
-    todo: "Unit 4 starts with a brief, age-appropriate lesson on the Transatlantic Slave Trade. Your student may have questions at the dinner table, so I wanted you to be aware."
+    todo: "Two Unit 4 dates swapped: the Socratic Seminar is now first and Mystery Colony is second. Check \"Later\" under Coming up for your student's new dates."
   },
 
   // Dates. Once a date passes it moves to "Past dates" on its own.

@@ -22,7 +22,7 @@ window.CLASS = {
   teacher: "Mr. Dickerson",
   course: "6th Grade US History",
   school: "WMMS",
-  email: "jebdickerson@lcps.org",
+  email: "Jeb.Dickerson@lcps.org",
 
   // Leave null to use the real date. Set a date only to preview the page as of that day.
   pretendToday: null,

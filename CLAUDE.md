@@ -17,6 +17,15 @@ week" or "skip" are all fine. Show the relevant current content from `data.js` w
    his planning calendar: when a lesson spans two days, the first is A Day and the second B Day.
    Add every known assessment and day off, even weeks out. The page only shows the next 7 days
    under Coming up and folds the rest into "Later", so long lists are fine.
+   **Reading his planning doc.** He keeps a Google Doc planning calendar (the link lives in the
+   scheduled task and chat, never in this public repo). Read as text, its merged cells flatten,
+   so don't trust which column a lesson lands in. Instead use `2026-27/school-days.json`, the
+   school's official A-D calendar: C days are A Day classes and D days are B Day classes. Walk
+   the lessons in order; each "UNIT X DAY n" takes the next A-type day and the next B-type day.
+   A lesson that shows up in two week-rows is split across the weekend. Holidays (H) and
+   planning days (P) have no class. The doc's "REMINDERS: To include in newsletter" rows are his
+   own notes for families; use them as the starting draft for Do this and Anything else.
+   Always show him the dates you rebuilt and get a confirm before using them.
 2. **Changes.** Did any of those dates move or get cancelled?
 3. **Do this.** Is there one thing families should do this week? (Fine to say nothing.)
 4. **Learning.** In a sentence, what are students learning right now?

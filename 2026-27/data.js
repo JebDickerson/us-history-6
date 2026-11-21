@@ -28,7 +28,7 @@ window.CLASS = {
   pretendToday: null,
 
   // The day of the most recent update. Shown at the top of the page.
-  updated: "2026-11-14",
+  updated: "2026-11-21",
 
   // The year's units, in order. Shown as the route across the top.
   units: ["Geography", "Indigenous Americans", "European Exploration", "Colonial America",
@@ -71,12 +71,12 @@ window.CLASS = {
 
   // The "This week" block at the top. Keep each to a sentence.
   thisWeek: {
-    learning: "We're closing out Unit 3 and starting Unit 4, Colonial America, beginning with the Transatlantic Slave Trade and Point Comfort, then Roanoke and Jamestown.",
+    learning: "We're digging into the first English colonies: Roanoke and Jamestown, then the New England Colonies.",
     // The thinking move we're leaning on right now. Must match a name in thinkingMoves below.
-    thinking: "Reasoning with Evidence",
-    thinkingNote: "Making a claim and backing it up with what the sources actually say, like students did with their explorer evidence files.",
+    thinking: "Capturing the Heart & Forming Conclusions",
+    thinkingNote: "Boiling a lesson down to what matters most: choosing the sentence, phrase, and word that capture a reading, and writing a headline for what happened at Roanoke and Jamestown.",
     // One thing families can do. null if there's nothing this week.
-    todo: "Unit 4 starts with a brief, age-appropriate lesson on the Transatlantic Slave Trade. Your student may have questions at the dinner table, so I wanted you to be aware."
+    todo: "It's a busy time of year and travel is likely, but the weeks before winter break are packed, with both Unit 4 summatives before we leave. Please help your student be in class every day. If they do miss, everything is posted in Schoology, and they're expected to check it and do the learning they missed."
   },
 
   // Dates. Once a date passes it moves to "Past dates" on its own.
@@ -100,17 +100,17 @@ window.CLASS = {
       note: "No school Wednesday 11/25 through Friday 11/27.",
       date: "2026-11-25", added: "2026-11-14" },
     { type: "minor", title: "Vocab & Map",
-      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+      a: "2026-12-11", b: "2026-12-14", was: { a: "2026-12-07", b: "2026-12-08" }, added: "2026-11-14" },
     { type: "formative", title: "Mystery Colony practice",
-      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+      a: "2026-12-11", b: "2026-12-14", was: { a: "2026-12-07", b: "2026-12-08" }, added: "2026-11-14" },
     { type: "summative", title: "Mystery Colony",
       note: "The Unit 4 end-of-unit major.",
-      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+      a: "2026-12-15", b: "2026-12-16", was: { a: "2026-12-09", b: "2026-12-10" }, added: "2026-11-14" },
     { type: "minor", title: "Sketchbook due",
       note: "Sketchbooks are always due the day of the unit's major summative.",
-      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+      a: "2026-12-15", b: "2026-12-16", was: { a: "2026-12-09", b: "2026-12-10" }, added: "2026-11-14" },
     { type: "summative", title: "Socratic Seminar",
-      a: "2026-12-15", b: "2026-12-16", added: "2026-11-14" },
+      a: "2026-12-09", b: "2026-12-10", was: { a: "2026-12-15", b: "2026-12-16" }, added: "2026-11-14" },
     { type: "no-school", title: "Winter break",
       note: "No school Monday 12/21 through Friday 1/1.",
       date: "2026-12-21", added: "2026-11-14" }
@@ -120,6 +120,19 @@ window.CLASS = {
   // The first photo is shown large; any others go in a row underneath.
   // The newest week shows in full; older weeks fold into "Earlier weeks."
   posts: [
+    {
+      week: "2026-11-16",
+      added: "2026-11-21",
+      title: "Hello, my fine feathered friends",
+      text: "Unit 4 is underway, and the turkey has already taken over the board. Friday's blocks ran a little short for the pep rally, so we watched the livestream together. Also on the board: Mila's drawing of me and my dog, Turk, who apparently says \"RAAAR!\"",
+      photos: [
+        { src: "photos/whiteboard-turkey-week.jpg", caption: "The week on the board, plus Mila's drawing of Mr. D and Turk" },
+        { src: "photos/pep-rally-livestream.jpg",   caption: "Watching the pep rally livestream" },
+        { src: "photos/three-friends.jpg",          caption: "Fine feathered friends" }
+      ],
+      ask: "How did Jamestown finally succeed as a colony? Who benefited from that success, and who didn't?",
+      listenFor: "Tobacco as the crop that finally made Jamestown profitable. Then more than one side of it: tobacco planters and England gained, while the Powhatan people lost their land, indentured servants did years of hard labor, and enslaved Africans did the work without any of the benefits."
+    },
     {
       week: "2026-11-09",
       added: "2026-11-14",
@@ -171,6 +184,10 @@ window.CLASS = {
 
   // Standing information. Always on the page, so it doesn't need repeating each week.
   reminders: [
+    {
+      title: "Missed a class?",
+      body: "All of our resources are always posted in Schoology. When students miss class, they're expected to check Schoology and do the learning they missed, so they stay on pace."
+    },
     {
       title: "Absent for an assessment?",
       body: "When a student misses an assessment (formative, minor or major), it's their responsibility to contact me within 1 or 2 days of their return to schedule a make-up. With 150 students, I can't manage that for them, so please help your student reach out."

@@ -76,7 +76,7 @@ window.CLASS = {
     thinking: "Capturing the Heart & Forming Conclusions",
     thinkingNote: "Boiling a lesson down to what matters most: choosing the sentence, phrase, and word that capture a reading, and writing a headline for what happened at Roanoke and Jamestown.",
     // One thing families can do. null if there's nothing this week.
-    todo: "Two Unit 4 dates swapped: the Socratic Seminar is now first and Mystery Colony is second. Check \"Later\" under Coming up for your student's new dates."
+    todo: "It's a busy time of year and travel is likely, but the weeks before winter break are packed, with both Unit 4 summatives before we leave. Please help your student be in class every day. If they do miss, everything is posted in Schoology, and they're expected to check it and do the learning they missed."
   },
 
   // Dates. Once a date passes it moves to "Past dates" on its own.
@@ -184,6 +184,10 @@ window.CLASS = {
 
   // Standing information. Always on the page, so it doesn't need repeating each week.
   reminders: [
+    {
+      title: "Missed a class?",
+      body: "All of our resources are always posted in Schoology. When students miss class, they're expected to check Schoology and do the learning they missed, so they stay on pace."
+    },
     {
       title: "Absent for an assessment?",
       body: "When a student misses an assessment (formative, minor or major), it's their responsibility to contact me within 1 or 2 days of their return to schedule a make-up. With 150 students, I can't manage that for them, so please help your student reach out."

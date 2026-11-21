@@ -28,7 +28,7 @@ window.CLASS = {
   pretendToday: null,
 
   // The day of the most recent update. Shown at the top of the page.
-  updated: "2026-11-14",
+  updated: "2026-11-21",
 
   // The year's units, in order. Shown as the route across the top.
   units: ["Geography", "Indigenous Americans", "European Exploration", "Colonial America",
@@ -100,17 +100,17 @@ window.CLASS = {
       note: "No school Wednesday 11/25 through Friday 11/27.",
       date: "2026-11-25", added: "2026-11-14" },
     { type: "minor", title: "Vocab & Map",
-      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+      a: "2026-12-11", b: "2026-12-14", was: { a: "2026-12-07", b: "2026-12-08" }, added: "2026-11-14" },
     { type: "formative", title: "Mystery Colony practice",
-      a: "2026-12-07", b: "2026-12-08", added: "2026-11-14" },
+      a: "2026-12-11", b: "2026-12-14", was: { a: "2026-12-07", b: "2026-12-08" }, added: "2026-11-14" },
     { type: "summative", title: "Mystery Colony",
       note: "The Unit 4 end-of-unit major.",
-      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+      a: "2026-12-15", b: "2026-12-16", was: { a: "2026-12-09", b: "2026-12-10" }, added: "2026-11-14" },
     { type: "minor", title: "Sketchbook due",
       note: "Sketchbooks are always due the day of the unit's major summative.",
-      a: "2026-12-09", b: "2026-12-10", added: "2026-11-14" },
+      a: "2026-12-15", b: "2026-12-16", was: { a: "2026-12-09", b: "2026-12-10" }, added: "2026-11-14" },
     { type: "summative", title: "Socratic Seminar",
-      a: "2026-12-15", b: "2026-12-16", added: "2026-11-14" },
+      a: "2026-12-09", b: "2026-12-10", was: { a: "2026-12-15", b: "2026-12-16" }, added: "2026-11-14" },
     { type: "no-school", title: "Winter break",
       note: "No school Monday 12/21 through Friday 1/1.",
       date: "2026-12-21", added: "2026-11-14" }

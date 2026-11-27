@@ -28,7 +28,7 @@ window.CLASS = {
   pretendToday: null,
 
   // The day of the most recent update. Shown at the top of the page.
-  updated: "2026-11-21",
+  updated: "2026-11-27",
 
   // The year's units, in order. Shown as the route across the top.
   units: ["Geography", "Indigenous Americans", "European Exploration", "Colonial America",
@@ -71,7 +71,7 @@ window.CLASS = {
 
   // The "This week" block at the top. Keep each to a sentence.
   thisWeek: {
-    learning: "We're digging into the first English colonies: Roanoke and Jamestown, then the New England Colonies.",
+    learning: "We're moving through the three colonial regions: New England, the Middle Colonies, and the Southern Colonies, and how they depended on each other.",
     // The thinking move we're leaning on right now. Must match a name in thinkingMoves below.
     thinking: "Capturing the Heart & Forming Conclusions",
     thinkingNote: "Boiling a lesson down to what matters most: choosing the sentence, phrase, and word that capture a reading, and writing a headline for what happened at Roanoke and Jamestown.",

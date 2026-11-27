@@ -121,6 +121,18 @@ window.CLASS = {
   // The newest week shows in full; older weeks fold into "Earlier weeks."
   posts: [
     {
+      week: "2026-11-23",
+      added: "2026-11-27",
+      title: "Where does Jamestown belong?",
+      text: "Just two days of class before Thanksgiving, so no major update this week. We opened Day 3 by having each class place Jamestown on a scale from failure to success. The votes were spread out, and most classes leaned toward success. Also pictured: sketchbook page 19, set up for Day 3, with a \"Keeping Track\" chart for weighing each success against its price.",
+      photos: [
+        { src: "photos/jamestown-scale-1.jpg", caption: "One class's votes: Jamestown, failure or success?" },
+        { src: "photos/jamestown-scale-2.jpg", caption: "Another class leaned toward success" },
+        { src: "photos/jamestown-scale-3.jpg", caption: "And one class spread out across the scale" },
+        { src: "photos/sketchbook-p19.jpg",    caption: "Sketchbook page 19, ready for Day 3" }
+      ]
+    },
+    {
       week: "2026-11-16",
       added: "2026-11-21",
       title: "Hello, my fine feathered friends",
